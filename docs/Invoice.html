@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Invoice
+  
+    &mdash; Documentation by YARD 0.9.28
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Invoice";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (I)</a> &raquo;
+    
+    
+    <span class="title">Invoice</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Invoice
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="CommercialDocument.html" title="CommercialDocument (class)">CommercialDocument</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></li>
+          
+            <li class="next"><span class='object_link'><a href="CommercialDocument.html" title="CommercialDocument (class)">CommercialDocument</a></span></li>
+          
+            <li class="next">Invoice</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd>Enumerize</dd>
+  </dl>
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Auditable.html" title="Auditable (module)">Auditable</a></span>, <span class='object_link'><a href="Draftable.html" title="Draftable (module)">Draftable</a></span>, <span class='object_link'><a href="Journalable.html" title="Journalable (module)">Journalable</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>app/models/accounting/invoice.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<h2 id="label-Schema+Information">Schema Information</h2>
+
+<p>Table name: invoices</p>
+
+<pre class="code ruby"><code class="ruby">id                :uuid             not null, primary key
+amount_due        :decimal(, )
+amount_paid       :decimal(, )
+date              :date
+due_date          :date
+number            :string
+status            :string
+subtotal          :decimal(, )
+taxes_amount      :decimal(, )
+taxes_calculation :string
+title             :string
+total             :decimal(, )
+created_at        :datetime         not null
+updated_at        :datetime         not null
+contact_id        :uuid
+organization_id   :uuid
+</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#actions-instance_method" title="#actions (instance method)">#<strong>actions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mark_as_new!-instance_method" title="#mark_as_new! (instance method)">#<strong>mark_as_new!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#mark_as_sent!-instance_method" title="#mark_as_sent! (instance method)">#<strong>mark_as_sent!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#most_recent_payment-instance_method" title="#most_recent_payment (instance method)">#<strong>most_recent_payment</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Draftable.html" title="Draftable (module)">Draftable</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Draftable.html#accept_draft!-instance_method" title="Draftable#accept_draft! (method)">#accept_draft!</a></span>, <span class='object_link'><a href="Draftable.html#return_to_draft!-instance_method" title="Draftable#return_to_draft! (method)">#return_to_draft!</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Journalable.html" title="Journalable (module)">Journalable</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Journalable.html#destroy_journal_entry-instance_method" title="Journalable#destroy_journal_entry (method)">#destroy_journal_entry</a></span>, <span class='object_link'><a href="Journalable.html#update_journal_entry-instance_method" title="Journalable#update_journal_entry (method)">#update_journal_entry</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="CommercialDocument.html" title="CommercialDocument (class)">CommercialDocument</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="CommercialDocument.html#accountable%3F-instance_method" title="CommercialDocument#accountable? (method)">#accountable?</a></span>, <span class='object_link'><a href="CommercialDocument.html#expirable%3F-instance_method" title="CommercialDocument#expirable? (method)">#expirable?</a></span>, <span class='object_link'><a href="CommercialDocument.html#payable%3F-instance_method" title="CommercialDocument#payable? (method)">#payable?</a></span>, <span class='object_link'><a href="CommercialDocument.html#transactionable%3F-instance_method" title="CommercialDocument#transactionable? (method)">#transactionable?</a></span>, <span class='object_link'><a href="CommercialDocument.html#transactions-instance_method" title="CommercialDocument#transactions (method)">#transactions</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="actions-instance_method">
+  
+    #<strong>actions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/accounting/invoice.rb', line 48</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_actions'>actions</span>
+  <span class='lbrace'>{</span>
+    <span class='label'>draft:</span> <span class='lbrace'>{</span>
+      <span class='label'>primary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_accept_draft_invoice_path'>accept_draft_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/clipboard-document-check</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Approve</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_method:</span> <span class='symbol'>:patch</span><span class='comma'>,</span> <span class='label'>primary:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>secondary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_edit_invoice_path'>edit_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/pencil-square</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Edit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>new:</span> <span class='lbrace'>{</span>
+      <span class='label'>primary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_prepare_email_invoice_path'>prepare_email_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/envelope</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Send</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span><span class='comma'>,</span>
+          <span class='label'>primary:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>secondary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_return_to_draft_invoice_path'>return_to_draft_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/clipboard-document</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Return to draft</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_method:</span> <span class='symbol'>:patch</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_mark_as_sent_invoice_path'>mark_as_sent_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/check</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mark as sent</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>turbo_method:</span> <span class='symbol'>:patch</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_edit_invoice_path'>edit_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/pencil-square</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Edit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>sent:</span> <span class='lbrace'>{</span>
+      <span class='label'>primary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_new_invoice_payment_path'>new_invoice_payment_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/currency-dollar</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Add payment</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span><span class='comma'>,</span> <span class='label'>primary:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>secondary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_mark_as_new_invoice_path'>mark_as_new_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/clipboard-document-check</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Mark as new</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_method:</span> <span class='symbol'>:patch</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_edit_invoice_path'>edit_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/pencil-square</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Edit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_prepare_email_invoice_path'>prepare_email_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/envelope</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Send reminder</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>late:</span> <span class='lbrace'>{</span>
+      <span class='label'>primary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_new_invoice_payment_path'>new_invoice_payment_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/currency-dollar</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Add payment</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span><span class='comma'>,</span> <span class='label'>primary:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>secondary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_edit_invoice_path'>edit_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/pencil-square</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Edit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_prepare_email_invoice_path'>prepare_email_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/envelope</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Send reminder</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span>
+    <span class='rbrace'>}</span><span class='comma'>,</span>
+    <span class='label'>partial:</span> <span class='lbrace'>{</span>
+      <span class='label'>primary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_new_invoice_payment_path'>new_invoice_payment_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/currency-dollar</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Add payment</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span><span class='comma'>,</span> <span class='label'>primary:</span> <span class='kw'>true</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span><span class='comma'>,</span>
+      <span class='label'>secondary:</span> <span class='lbracket'>[</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_edit_invoice_path'>edit_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/pencil-square</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Edit</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span><span class='comma'>,</span>
+        <span class='lbrace'>{</span> <span class='label'>route:</span> <span class='id identifier rubyid_prepare_email_invoice_path'>prepare_email_invoice_path</span><span class='lparen'>(</span><span class='kw'>self</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='label'>icon:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>mini/envelope</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>label:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Send reminder</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+          <span class='label'>turbo_frame:</span> <span class='symbol'>:modal</span> <span class='rbrace'>}</span>
+      <span class='rbracket'>]</span>
+    <span class='rbrace'>}</span>
+  <span class='rbrace'>}</span><span class='lbracket'>[</span><span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbrace'>{</span> <span class='label'>primary:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='label'>secondary:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mark_as_new!-instance_method">
+  
+    #<strong>mark_as_new!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+40
+41
+42</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/accounting/invoice.rb', line 40</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mark_as_new!'>mark_as_new!</span>
+  <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='label'>status:</span> <span class='symbol'>:new</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="mark_as_sent!-instance_method">
+  
+    #<strong>mark_as_sent!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/accounting/invoice.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_mark_as_sent!'>mark_as_sent!</span>
+  <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='label'>status:</span> <span class='symbol'>:sent</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="most_recent_payment-instance_method">
+  
+    #<strong>most_recent_payment</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+44
+45
+46</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/accounting/invoice.rb', line 44</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_most_recent_payment'>most_recent_payment</span>
+  <span class='id identifier rubyid_payments'>payments</span><span class='period'>.</span><span class='id identifier rubyid_order'>order</span><span class='lparen'>(</span><span class='symbol'>:date</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Feb  2 17:09:03 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.1.2).
+</div>
+
+    </div>
+  </body>
+</html>

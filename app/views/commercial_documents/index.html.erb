@@ -1,0 +1,25 @@
+<%= turbo_stream_from [current_organization, :commercial_documents, :kanban] %>
+
+<% content_for :page_actions do %>
+  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5">
+    <%= link_to sti_path, class: 'flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:px-3 bg-white shadow', role: 'tab', aria: { selected: true }, tabindex: 0 do %>
+      <%= inline_svg_tag 'outline/squares-2x2', class: 'h-5 w-5 flex-none stroke-teal-500' %>
+
+      <span class="sr-only lg:ml-2 text-slate-900">Active invoices</span>
+    <% end %>
+
+    <%= link_to sti_path(:archives), class: 'flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:px-3', role: 'tab', aria: { selected: false }, tabindex: 0 do %>
+      <%= inline_svg_tag 'outline/list-bullet', class: 'h-5 w-5 flex-none stroke-slate-600' %>
+
+      <span class="sr-only lg:ml-2 text-slate-600">Archives</span>
+    <% end %>
+  </div>
+
+  <%= button_to sti_path(:new), method: :get, class: 'button button--page-action', data: { turbo_frame: 'modal' } do %>
+    <%= inline_svg_tag 'mini/plus', class: 'button__image' %>
+  <% end %>
+<% end %>
+
+<div class="mb-6">
+  <%= render 'commercial_documents/kanban', document_name: params[:type], documents: @commercial_documents %>
+</div>

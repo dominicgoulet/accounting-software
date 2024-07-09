@@ -1,0 +1,12 @@
+<div class="relative w-full" data-controller="select-component--select-component">
+  <div>
+    <button type="button" class="overflow-hidden flex w-full items-center rounded-md bg-white text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100" id="user-menu-button" aria-expanded="false" aria-haspopup="true" data-action="focus->select-component--select-component#show blur->select-component--select-component#hide touchstart->select-component--select-component#show touchend->select-component--select-component#hide click@window->select-component--select-component#hide" data-select-component--select-component-target="selectToggle">
+      <span class="sr-only">Open <%= @title %></span>
+      <%= toggle %>
+    </button>
+  </div>
+
+  <div class="hidden absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1" data-select-component--select-component-target="selectContent">
+    <%= links %>
+  </div>
+</div>

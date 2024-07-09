@@ -1,0 +1,50 @@
+/* REMOVE THE .modal-dialog */
+.modal .modal-dialog { @apply
+  animate-confirm-open-confirm-dialog
+}
+
+.modal__backdrop { @apply
+  fixed
+  inset-0
+  bg-gray-500
+  bg-opacity-75
+  transition-opacity
+}
+
+.modal__dialog { @apply
+  relative
+  transform
+  overflow-hidden
+  rounded-lg
+  bg-white
+  text-left
+  shadow-xl
+  transition-all
+
+  sm:my-8
+  sm:w-full
+  sm:max-w-lg
+}
+
+.modal__dialog--wide { @apply
+  sm:max-w-7xl
+}
+
+.modal__title { @apply
+  text-lg font-medium leading-6 text-gray-900
+}
+
+.modal__description { @apply
+  mt-1 text-sm text-gray-500
+}
+
+.modal__footer { @apply
+  bg-gray-50
+  px-4
+  py-3
+  grid
+
+  sm:flex
+  sm:flex-row-reverse
+  sm:px-6 gap-2
+}

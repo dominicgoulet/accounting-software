@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: NinetyfourIntegration
+  
+    &mdash; Documentation by YARD 0.9.28
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "NinetyfourIntegration";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (N)</a> &raquo;
+    
+    
+    <span class="title">NinetyfourIntegration</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: NinetyfourIntegration
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="CoreIntegration.html" title="CoreIntegration (class)">CoreIntegration</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="CoreIntegration.html" title="CoreIntegration (class)">CoreIntegration</a></span></li>
+          
+            <li class="next">NinetyfourIntegration</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>app/models/integrations/ninetyfour_integration.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate_journal_entry-instance_method" title="#generate_journal_entry (instance method)">#<strong>generate_journal_entry</strong>(date, journalable_id, journalable_type)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate_journal_entry_lines-instance_method" title="#generate_journal_entry_lines (instance method)">#<strong>generate_journal_entry_lines</strong>(journal_entry)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove_journal_entry-instance_method" title="#remove_journal_entry (instance method)">#<strong>remove_journal_entry</strong>(journalable_id, journalable_type)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="CoreIntegration.html" title="CoreIntegration (class)">CoreIntegration</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="CoreIntegration.html#accounts_payable_account-instance_method" title="CoreIntegration#accounts_payable_account (method)">#accounts_payable_account</a></span>, <span class='object_link'><a href="CoreIntegration.html#accounts_receivable_account-instance_method" title="CoreIntegration#accounts_receivable_account (method)">#accounts_receivable_account</a></span>, <span class='object_link'><a href="CoreIntegration.html#initialize-instance_method" title="CoreIntegration#initialize (method)">#initialize</a></span></p>
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <p class="notice">This class inherits a constructor from <span class='object_link'><a href="CoreIntegration.html#initialize-instance_method" title="CoreIntegration#initialize (method)">CoreIntegration</a></span></p>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="generate_journal_entry-instance_method">
+  
+    #<strong>generate_journal_entry</strong>(date, journalable_id, journalable_type)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/integrations/ninetyfour_integration.rb', line 4</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate_journal_entry'>generate_journal_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_date'>date</span><span class='comma'>,</span> <span class='id identifier rubyid_journalable_id'>journalable_id</span><span class='comma'>,</span> <span class='id identifier rubyid_journalable_type'>journalable_type</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_journal_entry'>journal_entry</span> <span class='op'>=</span> <span class='ivar'>@organization</span><span class='period'>.</span><span class='id identifier rubyid_journal_entries'>journal_entries</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span>
+    <span class='label'>journalable_id:</span><span class='comma'>,</span>
+    <span class='label'>journalable_type:</span><span class='comma'>,</span>
+    <span class='label'>integration_id:</span> <span class='ivar'>@integration</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span>
+  <span class='rparen'>)</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_present?'>present?</span>
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='label'>date:</span><span class='rparen'>)</span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span> <span class='op'>=</span> <span class='ivar'>@organization</span><span class='period'>.</span><span class='id identifier rubyid_journal_entries'>journal_entries</span><span class='period'>.</span><span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span>
+      <span class='label'>journalable_id:</span><span class='comma'>,</span>
+      <span class='label'>journalable_type:</span><span class='comma'>,</span>
+      <span class='label'>date:</span><span class='comma'>,</span>
+      <span class='label'>integration:</span> <span class='ivar'>@integration</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+
+  <span class='id identifier rubyid_generate_journal_entry_lines'>generate_journal_entry_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generate_journal_entry_lines-instance_method">
+  
+    #<strong>generate_journal_entry_lines</strong>(journal_entry)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/integrations/ninetyfour_integration.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate_journal_entry_lines'>generate_journal_entry_lines</span><span class='lparen'>(</span><span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='rparen'>)</span>
+  <span class='kw'>case</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Bill</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_accounts_payable_account'>accounts_payable_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span>
+                                                                                                      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_total'>total</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_subtotal'>subtotal</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_taxes'>taxes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tax'>tax</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_sales_tax'>sales_tax</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span>
+                                                                                                     <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>BillPayment</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span>
+      <span class='symbol'>:credit</span><span class='comma'>,</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
+    <span class='rparen'>)</span>
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_accounts_payable_account'>accounts_payable_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span>
+                                                                                                      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span><span class='rparen'>)</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Expense</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span>
+      <span class='symbol'>:credit</span><span class='comma'>,</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_total'>total</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_subtotal'>subtotal</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_taxes'>taxes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tax'>tax</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_sales_tax'>sales_tax</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span>
+                                                                                                     <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>VendorCredit</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_accounts_receivable_account'>accounts_receivable_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span>
+                                                                                                         <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_vendor_credit_lines'>vendor_credit_lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_subtotal'>subtotal</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_vendor_credit_taxes'>vendor_credit_taxes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tax'>tax</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_sales_tax'>sales_tax</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span>
+                                                                                                     <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Invoice</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_accounts_receivable_account'>accounts_receivable_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span>
+                                                                                                         <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_total'>total</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_item'>item</span><span class='period'>.</span><span class='id identifier rubyid_income_account'>income_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span>
+                                                                                                        <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_subtotal'>subtotal</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_taxes'>taxes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tax'>tax</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_sales_tax'>sales_tax</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span>
+                                                                                                     <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>InvoicePayment</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_accounts_receivable_account'>accounts_receivable_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span>
+                                                                                                         <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span>
+      <span class='symbol'>:debit</span><span class='comma'>,</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span>
+    <span class='rparen'>)</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Deposit</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span>
+      <span class='symbol'>:debit</span><span class='comma'>,</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_total'>total</span>
+    <span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_lines'>lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_subtotal'>subtotal</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_taxes'>taxes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tax'>tax</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_sales_tax'>sales_tax</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span>
+                                                                                                     <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>CreditMemo</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_accounts_receivable_account'>accounts_receivable_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:credit</span><span class='comma'>,</span>
+                                                                                                         <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span><span class='rparen'>)</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_credit_memo_lines'>credit_memo_lines</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_line'>line</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span> <span class='id identifier rubyid_line'>line</span><span class='period'>.</span><span class='id identifier rubyid_subtotal'>subtotal</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_credit_memo_taxes'>credit_memo_taxes</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_tax'>tax</span><span class='op'>|</span>
+      <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_sales_tax'>sales_tax</span><span class='period'>.</span><span class='id identifier rubyid_account'>account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span><span class='symbol'>:debit</span><span class='comma'>,</span>
+                                                                                                     <span class='id identifier rubyid_tax'>tax</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span><span class='rparen'>)</span>
+    <span class='kw'>end</span>
+
+  <span class='kw'>when</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Transfer</span><span class='tstring_end'>&#39;</span></span>
+    <span class='comment'># FIXME : Find a better way to diff the lines to delete
+</span>    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_delete_all'>delete_all</span>
+
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_from_account'>from_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span>
+      <span class='symbol'>:credit</span><span class='comma'>,</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span>
+    <span class='rparen'>)</span>
+    <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journal_entry_lines'>journal_entry_lines</span><span class='period'>.</span><span class='id identifier rubyid_find_or_create_by'>find_or_create_by</span><span class='lparen'>(</span><span class='label'>account:</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_to_account'>to_account</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_increment!'>increment!</span><span class='lparen'>(</span>
+      <span class='symbol'>:debit</span><span class='comma'>,</span> <span class='id identifier rubyid_journal_entry'>journal_entry</span><span class='period'>.</span><span class='id identifier rubyid_journalable'>journalable</span><span class='period'>.</span><span class='id identifier rubyid_amount'>amount</span> <span class='op'>||</span> <span class='int'>0</span>
+    <span class='rparen'>)</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove_journal_entry-instance_method">
+  
+    #<strong>remove_journal_entry</strong>(journalable_id, journalable_type)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+25
+26
+27
+28
+29
+30</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'app/models/integrations/ninetyfour_integration.rb', line 25</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove_journal_entry'>remove_journal_entry</span><span class='lparen'>(</span><span class='id identifier rubyid_journalable_id'>journalable_id</span><span class='comma'>,</span> <span class='id identifier rubyid_journalable_type'>journalable_type</span><span class='rparen'>)</span>
+  <span class='ivar'>@organization</span><span class='period'>.</span><span class='id identifier rubyid_journal_entries'>journal_entries</span><span class='period'>.</span><span class='id identifier rubyid_find_by'>find_by</span><span class='lparen'>(</span>
+    <span class='label'>journalable_id:</span><span class='comma'>,</span>
+    <span class='label'>journalable_type:</span>
+  <span class='rparen'>)</span><span class='op'>&amp;.</span><span class='id identifier rubyid_destroy'>destroy</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Feb  2 17:09:04 2023 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.28 (ruby-3.1.2).
+</div>
+
+    </div>
+  </body>
+</html>

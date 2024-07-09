@@ -1,0 +1,88 @@
+<%= form_with model: @contact do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="modal__title">Contact information</h3>
+
+          <p class="modal__description">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-6">
+            <%= form.label :display_name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :display_name, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :display_name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :email, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.email_field :email, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :email) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :phone_number, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.phone_field :phone_number, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :phone_number) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :first_name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :first_name, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :first_name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :last_name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :last_name, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :last_name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :company_name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :company_name, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :company_name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :website, class: 'form__label' %>
+
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">https://</span>
+
+              <%= form.text_field :website, class: 'block w-full min-w-0 flex-grow rounded-none rounded-r-md border-gray-300 focus:border-sky-500 focus:ring-sky-500 sm:text-sm' %>
+              <%= form_error_notification(form, :website) %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

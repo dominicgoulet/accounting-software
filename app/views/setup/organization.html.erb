@@ -1,0 +1,40 @@
+<div class="relative px-6 lg:px-8">
+  <div class="mx-auto max-w-prose text-lg">
+    <span class="block text-center text-3xl font-light text-gray-900">
+      Now, let's talk about your organization.
+    </span>
+  </div>
+
+  <div class="prose prose-lg prose-indigo mx-auto mt-6 text-gray-500">
+    <%= form_with url: setup_organization_path, model: current_organization, method: :patch do |form| %>
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <p class="sm:col-span-6 mt-8 text-xl leading-8 text-gray-500">
+          After all, the vast majority of our work is going to be about this.
+        </p>
+
+        <div class="sm:col-span-3">
+          <%= form.label :name, class: 'form__label' %>
+
+          <div class="mt-1">
+            <%= form.text_field :name, autofocus: true, class: 'form__input' %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.label :website, class: 'form__label' %>
+
+          <div class="mt-1">
+            <%= form.text_field :website, autofocus: true, class: 'form__input' %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-6 mt-4 sm:mt-8">
+          <%= form.button class: 'button button--primary' do %>
+            <span>Continue</span>
+            <%= inline_svg_tag 'outline/arrow-long-right', class: 'h-5 w-5' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

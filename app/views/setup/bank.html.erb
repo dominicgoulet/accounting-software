@@ -1,0 +1,117 @@
+<% if current_organization.bank_credentials.size == 0 %>
+  <div class="relative px-6 lg:px-8">
+    <div class="mx-auto max-w-prose text-lg">
+      <span class="block text-center text-3xl font-light text-gray-900">
+        Importing data from your bank accounts.
+      </span>
+    </div>
+
+    <div class="prose prose-lg prose-indigo mx-auto mt-6 text-gray-500">
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <p class="sm:col-span-6 mt-8 text-xl leading-8 text-gray-500">
+          Using a third party trusted banking API (Plaid), we kindly request a read-only access to your bank accounts in order to import transactions and ease your accounting.
+        </p>
+
+        <div class="sm:col-span-6">
+          <button class="button button--primary" id="link-button">
+            Link Bank Account
+          </button>
+        </div>
+
+        <p class="sm:col-span-6 mt-8 text-xl leading-8 text-gray-500">
+          We won't take it personnal if you don't trust us already. You can skip this step.
+        </div>
+
+        <div class="sm:col-span-6">
+          <%= form_with method: :patch do |form| %>
+            <%= form.button class: 'button button--skip' do %>
+              <span>Skip this for now</span>
+              <%= inline_svg_tag 'outline/arrow-long-right', class: 'h-5 w-5' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
+    <script type="text/javascript">
+    (async function($) {
+      var handler = Plaid.create({
+        // Create a new link_token to initialize Link
+        token: (await $.post('/banking/create_link_token')).link_token,
+
+        onLoad: function() {
+          // Optional, called when Link loads
+        },
+
+        onSuccess: function(public_token, metadata) {
+          // Send the public_token to your app server.
+          // The metadata object contains info about the institution the
+          // user selected and the account ID or IDs, if the
+          // Account Select view is enabled.
+          $.post('/banking/exchange_public_token', {
+            public_token: public_token,
+          }, function(data) {
+            window.location.href = window.location.href;
+          });
+        },
+
+        onExit: function(err, metadata) {
+          // The user exited the Link flow.
+          if (err != null) {
+            // The user encountered a Plaid API error prior to exiting.
+          }
+          // metadata contains information about the institution
+          // that the user selected and the most recent API request IDs.
+          // Storing this information can be helpful for support.
+        },
+
+        onEvent: function(eventName, metadata) {
+          // Optionally capture Link flow events, streamed through
+          // this callback as your users connect an Item to Plaid.
+          // For example:
+          // eventName = "TRANSITION_VIEW"
+          // metadata  = {
+          //   link_session_id: "123-abc",
+          //   mfa_type:        "questions",
+          //   timestamp:       "2017-09-14T14:42:19.350Z",
+          //   view_name:       "MFA",
+          // }
+        }
+      });
+
+      $('#link-button').on('click', function(e) { handler.open(); });
+    })(jQuery);
+  </script>
+<% else %>
+  <div class="relative px-6 lg:px-8">
+    <div class="mx-auto max-w-prose text-lg">
+      <span class="block text-center text-3xl font-light text-gray-900">
+        This was a huge success!
+      </span>
+    </div>
+
+    <div class="prose prose-lg prose-indigo mx-auto mt-6 text-gray-500">
+      <%= form_with method: :patch do |form| %>
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <p class="sm:col-span-6 mt-8 text-xl leading-8 text-gray-500">
+            We successfully connected to <span class="font-bold"><%= current_organization.bank_credentials.first.name %></span>. We started importing your transactions. Depending on the number of transactions you have, it may or may not take a moment to retrieve all of them.
+          </p>
+
+          <div class="sm:col-span-6">
+            <%= form_with method: :patch do |form| %>
+              <%= form.button class: 'button button--primary' do %>
+                <span>Continue</span>
+                <%= inline_svg_tag 'outline/arrow-long-right', class: 'h-5 w-5' %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

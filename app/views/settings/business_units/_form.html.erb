@@ -1,0 +1,50 @@
+<%= form_with model: business_unit do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Business unit information</h3>
+          <p class="mt-1 text-sm text-gray-500">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-4">
+            <%= form.label :name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :name, class: 'form__input' %>
+              <%= form_error_notification(form, :name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-4">
+            <%= render ComboboxComponent.new(
+                  form: form,
+                  field: :parent_business_unit_id,
+                  kind: 'business_unit',
+                  options: current_organization.business_units,
+                  initial_value: form.object.parent_business_unit&.name) %>
+            <%= form_error_notification(form, :parent_business_unit) %>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :description, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_area :description, class: 'form__input' %>
+              <%= form_error_notification(form, :description) %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

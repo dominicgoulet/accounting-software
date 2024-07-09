@@ -1,0 +1,13 @@
+<div class="sm:col-span-2">
+  <label class="form__label">
+    Business unit
+    <div class="mt-1">
+      <select name="q[business_unit_id_eq]" class="form__input">
+        <option></option>
+        <%= options.each do |option| %>
+        <option value="<%= option.id %>"><%= option.name %></option>
+        <% end %>
+      </select>
+    </div>
+  </label>
+</div>

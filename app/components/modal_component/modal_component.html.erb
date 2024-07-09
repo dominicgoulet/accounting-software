@@ -1,0 +1,23 @@
+<%= turbo_frame_tag :modal do %>
+  <%= tag.div data: { controller: 'modal-component--modal-component',
+                      'modal-component--modal-component-target': 'modal',
+                      action: 'turbo:submit-end->modal-component--modal-component#submitEnd keyup@window->modal-component--modal-component#closeWithKeyboard' },
+                      class: 'modal' do %>
+
+    <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-start sm:p-0">
+
+          <div class="modal__backdrop animate-fade-in" data-action="click->modal-component--modal-component#hideModal"></div>
+
+          <div class="modal__dialog animate-confirm-open-confirm-dialog <% if @wide %>modal__dialog--wide<% end %>">
+            <div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+              <%= content %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+<% end %>

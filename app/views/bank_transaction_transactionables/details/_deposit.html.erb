@@ -1,0 +1,20 @@
+<div id="<%= dom_id(deposit) %>">
+  Deposit of <%= format_amount deposit.total %>
+  to <%= deposit.account.display_name %>
+  <% if deposit.contact.present? %>
+  from <%= deposit.contact.display_name%>
+  <% end %>
+    <% deposit.lines.each do |line| %>
+    <div class="ml-2">
+      <span class="mr-4"><%= line.account.display_name %></span>
+      <span><%= format_amount line.subtotal %></span>
+    </div>
+  <% end %>
+
+  <% deposit.taxes.each do |tax| %>
+    <div class="ml-2">
+      <span class="mr-4"><%= tax.sales_tax.name %></span>
+      <span><%= format_amount tax.amount %></span>
+    </div>
+  <% end %>
+</div>

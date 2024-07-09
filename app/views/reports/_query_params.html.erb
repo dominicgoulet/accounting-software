@@ -1,0 +1,11 @@
+<form>
+  <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-12">
+    <% query_parameters_components.each do |component| %>
+      <%= render component %>
+    <% end %>
+
+    <div class="sm:col-span-2 flex items-end">
+      <%= button_tag 'Apply', type: 'submit', class: 'button button--primary button--block' %>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,150 @@
+<tbody class="bg-white" id="<%= dom_id(journal_entry) %>">
+  <tr class="h-4">
+    <td class="relative w-12 px-6 sm:w-16 sm:px-8 align-top">
+      <div class="row-marker absolute inset-y-0 left-0 w-0.5 bg-indigo-600"></div>
+      <%= children_checkbox(journal_entry.id, true) %>
+    </td>
+
+    <td class="whitespace-nowrap py-3.5 text-xs text-gray-500 align-top border-l border-gray-200 text-center">
+      <div class="font-normal"><%= journal_entry.date %></div>
+
+      <% if journal_entry.recurring_event.present? %>
+        <div class="block mt-2">
+          <span class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 text-xs font-medium text-indigo-800">recurring</span>
+        </div>
+      <% end %>
+    </td>
+
+    <td class="text-xs text-gray-500 align-top border-r border-l border-gray-200" colspan="3">
+      <% if journal_entry.journal_entry_lines.any? %>
+      <table class="w-full  min-h-full">
+        <% journal_entry.journal_entry_lines.joins(:account).includes(:account).order('accounts.reference, accounts.name').each do |journal_entry_line| %>
+          <tr class="border-b border-gray-200">
+            <td class="h-10 text-gray-500 pl-3 flex items-center justify-between">
+              <div>
+                <%= journal_entry_line.account.display_name %>
+
+                <% if journal_entry_line.contact %>
+                  (<%= link_to journal_entry_line.contact.display_name, journal_entry_line.contact, class: 'text-indigo-500 hover:text-indigo-900' %>)
+                <% end %>
+              </div>
+
+              <% if journal_entry_line.business_unit %>
+                <span class="inline-flex items-center rounded bg-indigo-100 px-2 py-0.5 font-medium text-indigo-800 text-[10px]">
+                  <%= journal_entry_line.business_unit.display_name %>
+                </span>
+              <% end %>
+            </td>
+
+            <td class="w-28 whitespace-nowrap h-10 pr-3 text-gray-500 text-right">
+              <%= format_amount(journal_entry_line.credit) if journal_entry_line.credit != 0 %>
+            </td>
+
+            <td class="w-28 whitespace-nowrap h-10 pr-3 text-gray-500 text-right">
+              <%= format_amount(journal_entry_line.debit) if journal_entry_line.debit != 0 %>
+            </td>
+          </tr>
+        <% end %>
+
+        <tr class="font-medium bg-gray-50">
+          <td class="whitespace-nowrap pr-3 h-12 text-sm text-gray-500 text-right">
+            Total
+          </td>
+          <td class="w-28 whitespace-nowrap pr-3 h-12 text-sm text-gray-500 text-right">
+            <%= format_amount journal_entry.total_credit %>
+          </td>
+          <td class="w-28 whitespace-nowrap pr-3 h-12 text-sm text-gray-500 text-right">
+            <%= format_amount journal_entry.total_debit %>
+          </td>
+        </tr>
+      </table>
+      <% else %>
+        <div class="px-3 py-3.5">This entry is empty.</div>
+      <% end %>
+    </td>
+
+    <td class="py-2 pl-2 text-xs text-gray-500 align-top">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <div class="text-gray-400 font-medium uppercase text-[10px]">Integration</div>
+          <div class="text-gray-700"><%= journal_entry.integration.name %></div>
+        </div>
+
+        <div>
+          <div class="text-gray-400 font-medium uppercase text-[10px]">Journalable</div>
+          <div class="text-gray-700">
+            <% if journal_entry.journalable_type == 'CommercialDocument' %>
+              <%= journal_entry.journalable.type %>
+            <% elsif journal_entry.journalable_type.present? %>
+              <%= journal_entry.journalable_type.underscore.humanize %>
+            <% elsif journal_entry.integration_journalable_type.present? %>
+              <%= journal_entry.integration_journalable_type.underscore.humanize %>
+            <% end %>
+          </div>
+        </div>
+
+        <% if journal_entry.narration.present? %>
+        <div class="col-span-2">
+          <div class="text-gray-400 font-medium uppercase text-[10px]">Narration</div>
+          <div class="text-gray-700"><%= journal_entry.narration %></div>
+        </div>
+        <% end %>
+
+        <% if journal_entry.files.size > 0 %>
+          <div class="col-span-2">
+            <div class="text-gray-400 font-medium uppercase text-[10px]">Files</div>
+            <div class="text-gray-700">
+              <% journal_entry.files.each do |attached_file| %>
+                <%= link_to attached_file.blob.filename, url_for(attached_file), class: 'text-xs text-indigo-500 hover:text-indigo-900 block', target: '_blank' %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </td>
+
+    <td class="py-3.5 pr-3 text-sm text-gray-500 align-top">
+      <%= render DropdownComponent.new(title: "Rule menu", mode: 'light') do |c| %>
+        <%= c.with_toggle do %>
+          <%= inline_svg_tag 'mini/ellipsis-vertical', class: 'h-5 w-5' %>
+        <% end %>
+
+        <%= c.with_links do %>
+          <% if journal_entry.integration.system? %>
+            <%= link_to polymorphic_path([:edit, journal_entry.journalable]),
+                        class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                        data: { turbo_frame: 'modal' },
+                        role: 'menuitem',
+                        tabindex: -1 do %>
+              Edit <span class="sr-only">journal entry</span>
+            <% end %>
+
+            <%= link_to polymorphic_path(journal_entry.journalable),
+                        class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                        role: 'menuitem',
+                        tabindex: -1 do %>
+              Delete <span class="sr-only">journal entry</span>
+            <% end %>
+          <% else %>
+            <%= link_to edit_journal_entry_path(journal_entry),
+                        class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                        data: { turbo_frame: 'modal' },
+                        role: 'menuitem',
+                        tabindex: -1 do %>
+              Edit <span class="sr-only">journal entry</span>
+            <% end %>
+
+            <%= link_to journal_entry_path(journal_entry),
+                        class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                        role: 'menuitem',
+                        tabindex: -1 do %>
+              Delete <span class="sr-only">journal entry</span>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</tbody>

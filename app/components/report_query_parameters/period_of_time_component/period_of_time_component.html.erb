@@ -1,0 +1,32 @@
+<!-- <div class="sm:col-span-2">
+  <label class="form__label">
+    Period
+    <div class="mt-1">
+      <select class="form__input">
+        <option>Current year</option>
+        <option>Current month</option>
+        <option>Last year</option>
+        <option>Last month</option>
+        <option>All time</option>
+      </select>
+    </div>
+  </label>
+</div>
+ -->
+<div class="sm:col-span-2">
+  <label class="form__label">
+    Start date
+    <div class="mt-1">
+      <input name="q[date_gteq]" type="date" class="form__input" max="9999-12-12" value="<%= @start_date %>" />
+    </div>
+  </label>
+</div>
+
+<div class="sm:col-span-2">
+  <label class="form__label">
+    End date
+    <div class="mt-1">
+      <input name="q[date_lteq]" type="date" class="form__input" max="9999-12-12" value="<%= @end_date %>" />
+    </div>
+  </label>
+</div>

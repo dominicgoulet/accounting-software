@@ -1,0 +1,51 @@
+<div data-controller="combobox-component--combobox-component">
+  <% if @display_label %>
+  <label for=<%= "#{@field}_filterValueField" %> class="form__label">
+    <%= @field %>
+  </label>
+
+  <% end %>
+
+  <div class="relative mt-1">
+    <%= @form.hidden_field @field, data: { 'combobox-component--combobox-component-target': 'hiddenField' } %>
+
+    <input id="<%= "#{@field}_filterValueField" %>" type="text" class="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-12 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm" role="combobox" aria-controls="options" aria-expanded="false" value="<%= @initial_value %>" data-action="focus->combobox-component--combobox-component#showOptions click@window->combobox-component--combobox-component#hideOptions touchend@window->combobox-component--combobox-component#hideOptions keydown->combobox-component--combobox-component#beforeFilter keyup->combobox-component--combobox-component#filter focus->combobox-component--combobox-component#filter" data-combobox-component--combobox-component-target="filterValue">
+
+    <button type="button" tabindex="1" class="absolute inset-y-0 right-0 flex items-center rounded-r-md px-2 focus:outline-none">
+      <%= inline_svg_tag 'mini/x-mark', class: 'h-5 w-5 text-gray-400', data: { action: 'click->combobox-component--combobox-component#reset' } %>
+    </button>
+
+    <ul class="hidden absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" id="options" role="listbox" data-combobox-component--combobox-component-target="optionList">
+      <!--
+        Combobox option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation.
+      -->
+
+      <% @options.each_with_index do |option, index| %>
+        <li class="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:text-white hover:bg-indigo-600" id="option-<%= index %>" role="option" tabindex="-1" data-id="<%= option.id %>" data-display-name="<%= option.display_name %>" data-filter-name="<%= option.display_name.downcase %>" data-action="click->combobox-component--combobox-component#select" data-combobox-component--combobox-component-target="option">
+          <!-- Selected: "font-semibold" -->
+          <span class="block truncate"><%= option.display_name %></span>
+
+          <!-- Checkmark, only display for selected option. -->
+          <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-indigo-600 group-hover:text-white">
+            <%= inline_svg_tag 'mini/check', class: 'h-5 w-5' %>
+          </span>
+        </li>
+      <% end %>
+
+      <li data-combobox-component--combobox-component-target="newItem"
+          data-action="click->combobox-component--combobox-component#showContextualModalForm"
+          data-kind="<%= @kind %>"
+          data-contextual-form-url="<%= new_form_url %>"
+          class="hidden group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:text-white hover:bg-indigo-600">
+        Add
+        <span data-combobox-component--combobox-component-target="newItemName" class="font-bold ml-2"></span>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <dialog data-combobox-component--combobox-component-target="modalDialog" class="p-0 rounded-lg">
+      <turbo-frame id="contextual_form" data-combobox-component--combobox-component-target="contextualFormFrame"></turbo-frame>
+    </dialog>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<%= turbo_stream_from [current_organization, :contacts] %>
+
+<% content_for :page_actions do %>
+  <%= button_to new_contact_path, method: :get, class: 'button button--page-action', data: { turbo_frame: 'modal' } do %>
+    <%= inline_svg_tag 'mini/plus', class: 'button__image' %>
+  <% end %>
+<% end %>
+
+<%= turbo_frame_tag :contact do %>
+  <div class="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
+    <div class="relative z-0 flex flex-1 overflow-hidden -my-5 -mx-5 md:-my-6 md:-mx-6">
+
+      <main class="relative z-0 flex-1 overflow-y-auto focus:outline-none xl:order-last">
+        <nav class="flex items-start px-4 py-3 sm:px-6 lg:px-8 xl:hidden" aria-label="Breadcrumb">
+          <%= link_to contacts_path, class: 'inline-flex items-center space-x-3 text-sm font-medium text-gray-900' do %>
+            <%= inline_svg_tag 'mini/chevron-left', class: '-ml-2 h-5 w-5 text-gray-400' %>
+            <span>Directory</span>
+          <% end %>
+        </nav>
+
+        <article>
+          <%= render partial: 'contacts/header', locals: { contact: @contact } %>
+          <%= render partial: 'contacts/tabs', locals: { contact: @contact } %>
+
+          <% if current_page?(contact_path(@contact)) %>
+            <%= render partial: 'contacts/overview', locals: { contact: @contact } %>
+          <% elsif current_page?(invoices_contact_path(@contact)) %>
+            <div class="py-6 px-4 sm:px-6 lg:px-8">
+              <div class="sm:flex sm:items-top">
+                <div class="sm:flex-auto">
+                  <h1 class="text-xl font-semibold text-gray-900">Invoices</h1>
+                  <p class="mt-2 text-sm text-gray-700">
+                    A list of financial accounts for recording transactions in the organization's general ledger. Accounts may be added to the chart of accounts as needed; they would not generally be removed, especially if any transaction had been posted to the account or if there is a non-zero balance.
+                  </p>
+                </div>
+
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                  <%= button_to new_invoice_path, method: :get, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto', data: { turbo_frame: 'modal' } do %>
+                    Add invoice
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <%= render 'commercial_documents/datatable', document_name: 'invoice', documents: @contact.invoices %>
+              </div>
+            </div>
+          <% elsif current_page?(deposits_contact_path(@contact)) %>
+            <div class="py-6 px-4 sm:px-6 lg:px-8">
+              <div class="sm:flex sm:items-top">
+                <div class="sm:flex-auto">
+                  <h1 class="text-xl font-semibold text-gray-900">Deposits</h1>
+                  <p class="mt-2 text-sm text-gray-700">
+                    A list of financial accounts for recording transactions in the organization's general ledger. Accounts may be added to the chart of accounts as needed; they would not generally be removed, especially if any transaction had been posted to the account or if there is a non-zero balance.
+                  </p>
+                </div>
+
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                  <%= button_to new_deposit_path, method: :get, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto', data: { turbo_frame: 'modal' } do %>
+                    Add deposit
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <%= render 'commercial_documents/datatable', document_name: 'deposit', documents: @contact.deposits %>
+              </div>
+            </div>
+          <% elsif current_page?(bills_contact_path(@contact)) %>
+            <div class="py-6 px-4 sm:px-6 lg:px-8">
+              <div class="sm:flex sm:items-top">
+                <div class="sm:flex-auto">
+                  <h1 class="text-xl font-semibold text-gray-900">Bills</h1>
+                  <p class="mt-2 text-sm text-gray-700">
+                    A list of financial accounts for recording transactions in the organization's general ledger. Accounts may be added to the chart of accounts as needed; they would not generally be removed, especially if any transaction had been posted to the account or if there is a non-zero balance.
+                  </p>
+                </div>
+
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                  <%= button_to new_bill_path, method: :get, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto', data: { turbo_frame: 'modal' } do %>
+                    Add bill
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <%= render 'commercial_documents/datatable', document_name: 'bill', documents: @contact.bills %>
+              </div>
+            </div>
+          <% elsif current_page?(expenses_contact_path(@contact)) %>
+            <div class="py-6 px-4 sm:px-6 lg:px-8">
+              <div class="sm:flex sm:items-top">
+                <div class="sm:flex-auto">
+                  <h1 class="text-xl font-semibold text-gray-900">Expenses</h1>
+                  <p class="mt-2 text-sm text-gray-700">
+                    A list of financial accounts for recording transactions in the organization's general ledger. Accounts may be added to the chart of accounts as needed; they would not generally be removed, especially if any transaction had been posted to the account or if there is a non-zero balance.
+                  </p>
+                </div>
+
+                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                  <%= button_to new_expense_path, method: :get, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto', data: { turbo_frame: 'modal' } do %>
+                    Add expense
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="mt-8">
+                <%= render 'commercial_documents/datatable', document_name: 'expense', documents: @contact.expenses %>
+              </div>
+            </div>
+          <% end %>
+        </article>
+      </main>
+
+      <aside class="hidden w-96 flex-shrink-0 border-r border-gray-200 xl:order-first xl:flex xl:flex-col">
+        <%= render partial: 'contacts/contacts', locals: { contacts: @contacts } %>
+      </aside>
+    </div>
+  </div>
+<% end %>

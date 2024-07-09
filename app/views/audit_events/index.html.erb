@@ -1,0 +1,28 @@
+<%= render ModalComponent.new(wide: true) do %>
+  <%= turbo_stream_from [current_organization, :audit_events] %>
+
+  <div class="bg-white rounded-lg px-6 py-3">
+    <table class="min-w-full table-fixed divide-y divide-gray-300">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="w-42 py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+            Occured at
+          </th>
+          <th scope="col" class="w-48 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell">
+            Integration
+          </th>
+          <th scope="col" class="w-32 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell">
+            Action
+          </th>
+          <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell">
+            Changes
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200 bg-white" id="audit_events">
+        <%= render @audit_events %>
+      </tbody>
+    </table>
+  </div>
+<% end %>

@@ -1,0 +1,7 @@
+<%= content_for :page_title do %>
+  <%= render SectionMenuComponent.new(
+    items: people_menu_items,
+    context: params) %>
+<% end %>
+
+<%= render template: "layouts/application" %>

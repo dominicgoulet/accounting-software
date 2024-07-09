@@ -1,0 +1,10 @@
+<tr class="border-b border-gray-200">
+  <td class="py-4 pl-4 pr-3 text-sm sm:pl-6 md:pl-0">
+    <div class="font-medium text-gray-900"><%= document_line.item_name %></div>
+    <div class="mt-0.5 text-gray-500 sm:hidden"><%= document_line.quantity %> x <%= format_amount(document_line.actual_unit_price) %></div>
+    <div class="text-gray-500">asd<%= simple_format(document_line.description) %></div>
+  </td>
+  <td class="hidden py-4 px-3 text-right text-sm text-gray-500 sm:table-cell"><%= document_line.quantity %></td>
+  <td class="hidden py-4 px-3 text-right text-sm text-gray-500 sm:table-cell"><%= format_amount(document_line.actual_unit_price) %></td>
+  <td class="py-4 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-6 md:pr-0"><%= format_amount(document_line.subtotal) %></td>
+</tr>

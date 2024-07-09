@@ -1,0 +1,65 @@
+<%= render ModalComponent.new(wide: true) do %>
+  <table class="min-w-full table-fixed divide-y divide-gray-300">
+    <thead class="bg-gray-50">
+      <th scope="col" class="w-28 py-3.5 px-6 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell">
+        Date
+      </th>
+      <th scope="col" class="min-w-[12rem] px-6 py-3.5 text-left text-sm font-semibold text-gray-900 hidden sm:table-cell">
+        Document
+      </th>
+      <th scope="col" class="w-28 px-6 py-3.5 text-left text-sm font-semibold text-gray-900 text-right">
+        Debit
+      </th>
+      <th scope="col" class="w-28 px-6 py-3.5 text-left text-sm font-semibold text-gray-900 text-right">
+        Credit
+      </th>
+      <th scope="col" class="w-28 px-6 py-3.5 text-left text-sm font-semibold text-gray-900 text-right">
+        Balance
+      </th>
+    </thead>
+
+    <tbody class="divide-y divide-gray-200 bg-white" id="accounts">
+      <% @data[:lines].each do |line| %>
+      <tr class="table-row sm:hidden">
+        <td colspan="3" class="py-2 px-6 text-xs text-gray-900">
+          <span class="mr-4"><%= line[:date] %></span>
+
+          <%#= link_to polymorphic_path([:edit, line[:journalable]]), data: { turbo_frame: 'modal' }, class: 'link mr-4' do %>
+            <%= line[:integration] %>
+            -
+            <%= line[:journalable_type] %>
+          <%# end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="py-2 pl-6 text-xs text-gray-900 hidden sm:table-cell">
+          <%= line[:date] %>
+        </td>
+        <td class="pl-6 py-2 text-xs text-gray-900 hidden sm:table-cell">
+          <%#= link_to polymorphic_path([:edit, line[:journalable]]), data: { turbo_frame: 'modal' }, class: 'link mr-4' do %>
+            <%= line[:integration] %>
+            -
+            <%= line[:journalable_type] %>
+          <%# end %>
+        </td>
+        <td class="pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:credit]) if line[:credit] > 0 %>
+        </td>
+        <td class="pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:debit]) if line[:debit] > 0 %>
+        </td>
+        <td class="pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:balance]) %>
+        </td>
+      </tr>
+      <% end %>
+
+      <tr class="font-medium">
+        <td colspan="2" class="hidden sm:table-cell"></td>
+        <td class="whitespace-nowrap px-6 py-2 text-sm text-gray-500 text-right"><%= format_amount(@account.total_credit) %></td>
+        <td class="whitespace-nowrap px-6 py-2 text-sm text-gray-500 text-right"><%= format_amount(@account.total_debit) %></td>
+        <td class="whitespace-nowrap px-6 py-2 text-sm text-gray-500 text-right"><%= format_amount(@account.current_balance) %></td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>

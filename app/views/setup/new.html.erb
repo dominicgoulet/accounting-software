@@ -1,0 +1,25 @@
+<div class="relative px-6 lg:px-8">
+  <div class="mx-auto max-w-prose text-lg">
+    <span class="block text-center text-3xl font-light text-gray-900">
+      Welcome to ninetyfour 🎉
+    </span>
+  </div>
+
+  <div class="prose prose-lg prose-indigo mx-auto mt-6 text-gray-500">
+    <%= form_with method: :patch, class: 'flex justify-center' do |form| %>
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <p class="sm:col-span-6 mt-8 text-xl leading-8 text-gray-500">
+          Before getting to the real stuff, we need to ask you a few questions to get your experience right.
+        </p>
+
+        <div class="sm:col-span-6">
+          <%= form.button class: 'button button--primary' do %>
+            Let's start
+            <%= inline_svg_tag 'outline/arrow-long-right', class: 'h5 w-5' %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+  </div>
+</div>
+

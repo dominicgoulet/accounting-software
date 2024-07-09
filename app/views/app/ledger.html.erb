@@ -1,0 +1,131 @@
+<%= content_for :page_actions do %>
+  <%= button_to new_journal_entry_path, method: :get, class: 'button button--page-action', data: { turbo_frame: 'modal' } do %>
+    <%= inline_svg_tag 'mini/plus', class: 'button__image' %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream_from [current_organization, :journal_entries] %>
+
+<div class="rounded-lg bg-white shadow">
+  <div class="pt-1 pb-4 px-4 sm:pb-6 lg:pb-8 sm:px-6 lg:px-8">
+    <%= search_form_for @q, url: ledger_path do |f| %>
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-12">
+        <div class="sm:col-span-2">
+          <label class="form__label">
+            Period
+            <div class="mt-1">
+              <select class="form__input">
+                <option>Current year</option>
+                <option>Current month</option>
+                <option>Last year</option>
+                <option>Last month</option>
+                <option>All time</option>
+              </select>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="form__label">
+            Start date
+            <div class="mt-1">
+              <%= f.date_field :date_gteq, class: 'form__input' %>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="form__label">
+            End date
+            <div class="mt-1">
+              <%= f.date_field :date_lteq, class: 'form__input' %>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="form__label">
+            Business unit
+            <div class="mt-1">
+              <%= f.select :journal_entry_lines_business_unit_id_eq,
+                           [''] + (current_organization.business_units.map { |bu| [bu.name, bu.id] }),
+                           {},
+                           class: 'form__input', include_blank: true %>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label class="form__label">
+            Integration
+            <div class="mt-1">
+              <%= f.select :integration_id_eq,
+                           [''] + current_organization.integrations.order('system desc, name asc').map { |i| [i.name, i.id] },
+                           {},
+                           class: 'form__input' %>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-2 flex items-end">
+          <%= button_tag 'Apply', type: 'submit', class: 'button button--primary button--block' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col" data-controller="datatable">
+    <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="shadow ring-1 ring-black ring-opacity-5 md:rounded-b-lg">
+
+          <%= turbo_frame_tag :datatable, class: 'divide-y divide-gray-300' do %>
+            <%= paginate @journal_entries %>
+
+            <div class="relative">
+              <div class="hidden absolute top-0 left-12 flex h-12 items-center space-x-3 bg-gray-50 sm:left-16" data-datatable-target="batchActions">
+                <%= form_with(url: destroy_many_journal_entries_path, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } ) do |form| %>
+                  <span data-datatable-target="identifiers"></span>
+
+                  <button type="submit" class="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30" data-datatable-target="actionButton">
+                    Delete selected
+                  </button>
+                <% end %>
+              </div>
+            </div>
+
+            <table class="-mt-px min-w-full table-fixed divide-y divide-gray-300" id="journal_entries">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th scope="col" class="relative w-12 px-6 sm:w-16 sm:px-8">
+                    <%= master_checkbox %>
+                  </th>
+                  <th scope="col" class="w-28 py-3.5 text-left px-4 text-sm font-semibold text-gray-900">
+                    <%= sort_link @q, :date %>
+                  </th>
+                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 hidden xl:table-cell">
+                    Accounts
+                  </th>
+                  <th scope="col" class="w-28 px-6 py-3.5 text-left text-sm font-semibold text-gray-900 text-right">
+                    Debit
+                  </th>
+                  <th scope="col" class="w-28 px-6 py-3.5 text-left text-sm font-semibold text-gray-900 text-right">
+                    Credit
+                  </th>
+                  <th scope="col" class="w-72 py-3.5 px-2 text-left text-sm font-semibold text-gray-900">
+                    Metadata
+                  </th>
+                  <th scope="col" class="w-4 py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                    &nbsp;
+                  </th>
+                </tr>
+              </thead>
+
+              <%= render @journal_entries %>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

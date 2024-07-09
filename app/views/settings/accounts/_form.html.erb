@@ -1,0 +1,100 @@
+<%= form_with model: account do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Account information</h3>
+          <p class="mt-1 text-sm text-gray-500">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-2">
+            <%= form.label :classification, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.select :classification,
+                              Account.classification.values.map { |x| [x.capitalize, x] },
+                              {},
+                              class: 'form__input' %>
+              <%= form_error_notification(form, :classification) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-4">
+            <%= render ComboboxComponent.new(
+                  form: form,
+                  field: :parent_account_id,
+                  kind: 'account',
+                  options: current_organization.accounts,
+                  initial_value: form.object.parent_account&.display_name) %>
+            <%= form_error_notification(form, :parent_account) %>
+          </div>
+
+          <div class="sm:col-span-2">
+            <%= form.label :reference, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :reference, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :reference) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-4">
+            <%= form.label :name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :name, class: 'form__input' %>
+              <%= form_error_notification(form, :name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :starting_balance, class: 'form__label' %>
+
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <span class="text-gray-500 sm:text-sm">$</span>
+              </div>
+              <%= form.text_field :starting_balance, placeholder: '0.00', class: 'block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm' %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <span class="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+              </div>
+              <%= form_error_notification(form, :starting_balance) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :sales_tax_ids, class: 'form__label' %>
+
+            <div class="mt-1">
+              <fieldset class="space-y-2">
+                <legend class="sr-only">Notifications</legend>
+
+                <%= form.collection_check_boxes(:sales_tax_ids, current_organization.sales_taxes, :id, :name) do |b| %>
+                  <%= b.label class: 'relative flex items-start' do %>
+                      <div class="flex h-5 items-center">
+                        <%= b.check_box class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500' %>
+                      </div>
+                      <div class="ml-3 text-sm flex gap-4">
+                        <span class="font-medium text-gray-700"><%= b.text %></span>
+                        <span id="comments-description" class="text-gray-500"><%= b.object.rate %> %</span>
+                      </div>
+                    <% end %>
+                <% end %>
+              </fieldset>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

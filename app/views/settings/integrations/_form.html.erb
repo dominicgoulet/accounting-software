@@ -1,0 +1,79 @@
+<%= form_with model: integration do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Integration information</h3>
+          <p class="mt-1 text-sm text-gray-500">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-4">
+            <%= form.label :integration_type, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.select :integration_type,
+                              ['CUSTOM' ,'QUICKBOOKS', 'XERO'],
+                              {},
+                              class: 'form__input' %>
+              <%= form_error_notification(form, :integration_type) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-4">
+            <%= form.label :name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :name, class: 'form__input' %>
+              <%= form_error_notification(form, :name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :webhook_url, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :webhook_url, class: 'form__input' %>
+              <%= form_error_notification(form, :webhook_url) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <label class="form__label">Webhooks subscriptions</label>
+
+            <%= form.collection_check_boxes(:subscribed_webhooks, Integration.available_webhooks, :id, :name) do |b| %>
+              <%= b.label class: 'relative flex items-start' do %>
+                  <div class="flex h-5 items-center">
+                    <%= b.check_box class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500' %>
+                  </div>
+                  <div class="ml-3 text-sm flex gap-4">
+                    <span class="font-medium text-gray-700"><%= b.text %></span>
+                  </div>
+                <% end %>
+            <% end %>
+          </div>
+
+          <div class="sm:col-span-4">
+            <%= form.label :secret_key, class: 'form__label' %>
+
+            <div class="mt-1">
+              <div class="mt-1">
+                <div class="form__input">
+                  <%= integration.secret_key %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

@@ -1,0 +1,149 @@
+<%= form_with model: item do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Item</h3>
+          <p class="mt-1 text-sm text-gray-500">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-12">
+          <div class="sm:col-span-6">
+            <%= form.label :name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :name, class: 'form__input' %>
+              <%= form_error_notification(form, :name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :ugs, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :ugs, class: 'form__input' %>
+              <%= form_error_notification(form, :ugs) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :cup, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :cup, class: 'form__input' %>
+              <%= form_error_notification(form, :cup) %>
+            </div>
+          </div>
+
+          <div data-controller="collapse" class="sm:col-span-6">
+            <div class="relative flex items-start">
+              <div class="flex h-5 items-center">
+                <%= form.check_box :sell, class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500', data: { collapse_target: :toggle, action: 'collapse#toggleContent' } %>
+              </div>
+              <div class="ml-3 text-sm">
+                <%= form.label :sell, class: 'font-medium text-gray-700' do %>
+                  I sell this
+                <% end %>
+              </div>
+            </div>
+
+            <div data-collapse-target="content" class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+              <div class="sm:col-span-5">
+                <%= form.label :sell_price, class: 'form__label' %>
+
+                <div class="relative mt-1 rounded-md shadow-sm">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span class="text-gray-500 sm:text-sm">$</span>
+                  </div>
+                  <%= form.text_field :sell_price, placeholder: '0.00', class: 'block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm' %>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <span class="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+                  </div>
+                  <%= form_error_notification(form, :sell_price) %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <%= render ComboboxComponent.new(
+                      form: form,
+                      field: :income_account_id,
+                      kind: 'account',
+                      options: current_organization.accounts,
+                      initial_value: form.object.income_account&.display_name) %>
+                <%= form_error_notification(form, :income_account) %>
+              </div>
+
+              <div class="sm:col-span-6">
+                <%= form.label :sell_description, class: 'form__label' %>
+
+                <div class="mt-1">
+                  <%= form.text_area :sell_description, autofocus: true, class: 'form__input' %>
+                  <%= form_error_notification(form, :sell_description) %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div data-controller="collapse" class="sm:col-span-6">
+            <div class="relative flex items-start">
+              <div class="flex h-5 items-center">
+                <%= form.check_box :buy, class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500', data: { collapse_target: :toggle, action: 'collapse#toggleContent' } %>
+              </div>
+              <div class="ml-3 text-sm">
+                <%= form.label :buy, class: 'font-medium text-gray-700' do %>
+                  I buy this
+                <% end %>
+              </div>
+            </div>
+
+            <div data-collapse-target="content" class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+              <div class="sm:col-span-5">
+                <%= form.label :buy_price, class: 'form__label' %>
+
+                <div class="relative mt-1 rounded-md shadow-sm">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span class="text-gray-500 sm:text-sm">$</span>
+                  </div>
+                  <%= form.text_field :buy_price, placeholder: '0.00', class: 'block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm' %>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <span class="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+                  </div>
+                  <%= form_error_notification(form, :buy_price) %>
+                </div>
+              </div>
+
+              <div class="sm:col-span-6">
+                <%= render ComboboxComponent.new(
+                      form: form,
+                      field: :expense_account_id,
+                      kind: 'account',
+                      options: current_organization.accounts,
+                      initial_value: form.object.expense_account&.display_name) %>
+                <%= form_error_notification(form, :expense_account) %>
+              </div>
+
+              <div class="sm:col-span-6">
+                <%= form.label :buy_description, class: 'form__label' %>
+
+                <div class="mt-1">
+                  <%= form.text_area :buy_description, autofocus: true, class: 'form__input' %>
+                  <%= form_error_notification(form, :buy_description) %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

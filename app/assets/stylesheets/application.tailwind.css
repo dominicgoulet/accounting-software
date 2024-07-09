@@ -1,0 +1,185 @@
+@import url('https://rsms.me/inter/inter.css');
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import 'components/button';
+@import 'components/form';
+@import 'components/modal';
+
+.dropdown-open { @apply
+  block
+  animate-dropdown-open
+}
+
+.dropdown-close { @apply
+  hidden
+  animate-dropdown-close
+}
+
+.select-open { @apply
+  block
+  animate-dropdown-open
+}
+
+.select-close { @apply
+  hidden
+  animate-dropdown-close
+}
+
+.modal-open .modal-dialog,
+.confirm-open .confirm-dialog { @apply
+  animate-confirm-open-confirm-dialog
+/*  transition ease-in duration-200
+  transform opacity-100 translate-y-0 sm:scale-100
+  transform opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95*/
+}
+
+.modal-close .modal-dialog,
+.confirm-close .confirm-dialog { @apply
+  animate-confirm-close-confirm-dialog
+/*  transition ease-in duration-200
+  transform opacity-100 translate-y-0 sm:scale-100
+  transform opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95*/
+}
+
+.settings-menu-item { @apply
+  border-transparent text-gray-900 hover:bg-gray-50 hover:text-gray-900 border-l-4 px-3 py-2 flex items-center text-sm font-medium
+}
+
+.settings-menu-item.active { @apply
+  bg-indigo-50 border-indigo-500 text-indigo-700 hover:bg-indigo-50 hover:text-indigo-700 border-l-4 px-3 py-2 flex items-center text-sm font-medium
+}
+
+.settings-menu-item svg { @apply
+  text-gray-400  flex-shrink-0 -ml-1 mr-3 h-6 w-6
+}
+
+.settings-menu-item.active svg { @apply
+  text-indigo-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6
+}
+
+input[disabled] { @apply
+  bg-gray-100
+}
+
+/*
+ * Flash
+ */
+/*
+.flash-message.alert { @apply
+  bg-red-500
+}
+
+.flash-message.notice { @apply
+  bg-indigo-500
+}
+
+.flash-message.success { @apply
+  bg-green-500
+}*/
+
+/*
+ * Forms
+ */
+.field_with_errors input { @apply border-red-500 }
+
+/*
+ * Ransack
+ */
+.sort_link { @apply inline-flex }
+.sort_link:hover span { @apply bg-gray-300 }
+.sort_link span { @apply ml-2 flex-none rounded bg-gray-200 text-gray-900 bg-gray-200 text-gray-900 }
+
+/*
+ * Tables
+ */
+table thead th:first-child { @apply md:rounded-tl-lg }
+table thead th:last-child { @apply md:rounded-tr-lg }
+table tbody:last-child tr:last-child td:first-child { @apply md:rounded-bl-lg }
+table tbody:last-child tr:last-child td:last-child { @apply md:rounded-br-lg }
+table tr.selected td:nth-child(2) { @apply text-indigo-600 }
+table tr:not(.selected) .row-marker { @apply hidden }
+
+/*
+ * Turbo & Hotwire animations
+ */
+
+.turbo-remove { @apply
+  bg-red-200
+  animate-turbo-replace
+}
+
+.turbo-prepend { @apply
+  bg-green-200
+  animate-turbo-replace
+}
+
+.turbo-replace { @apply
+  bg-blue-200
+  animate-turbo-replace
+}
+
+.turbo-update { @apply
+  bg-yellow-200
+  animate-turbo-update
+}
+
+/*
+ * Tabs
+ */
+
+.tab { @apply
+  w-1/4 py-4 px-1 text-center border-b-2 font-medium text-sm cursor-pointer
+}
+
+.tab:not(.active) { @apply
+  border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300
+}
+
+.tab.active { @apply
+  border-indigo-500 text-indigo-600
+}
+
+/*
+ * Direct uploads
+ */
+
+.direct-upload {
+  display: inline-block;
+  position: relative;
+  padding: 2px 4px;
+  margin: 0 3px 3px 0;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  font-size: 11px;
+  line-height: 13px;
+}
+
+.direct-upload--pending {
+  opacity: 0.6;
+}
+
+.direct-upload__progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  opacity: 0.2;
+  background: #0076ff;
+  transition: width 120ms ease-out, opacity 60ms 60ms ease-in;
+  transform: translate3d(0, 0, 0);
+}
+
+.direct-upload--complete .direct-upload__progress {
+  opacity: 0.4;
+}
+
+.direct-upload--error {
+  border-color: red;
+}
+
+input[type=file][data-direct-upload-url][disabled] {
+  display: none;
+}

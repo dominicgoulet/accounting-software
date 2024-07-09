@@ -1,0 +1,91 @@
+<div id="<%= dom_id(@document) %>" class="col-span-1 divide-y divide-gray-200 rounded-lg bg-white shadow" data-kanban-target="item" data-status="<%= @document.status %>">
+  <%= link_to sti_path(:show) do %>
+    <div class="flex w-full items-center justify-between space-x-6 p-4">
+      <div class="flex-1 truncate">
+        <div class="flex items-center space-x-3">
+          <h3 class="truncate text-sm font-medium text-gray-900">
+            <%= @document.date %>
+          </h3>
+        </div>
+
+        <% if @document.contact.present? %>
+        <p class="mt-1 truncate text-sm text-gray-500">
+          <%= @document.contact.display_name %>
+        </p>
+        <% end %>
+      </div>
+
+      <% if @document.contact.present? %>
+      <img class="h-10 w-10 flex-shrink-0 rounded-full bg-gray-300" src="<%= @document.contact.avatar_url %>" alt="<%= @document.contact.display_name %>">
+      <% end %>
+    </div>
+
+    <div class="text-xs px-4 pb-4 text-gray-500 grid space-y-1">
+      <% @document.lines.each do |line| %>
+        <div class="flex items-center space-x-3 justify-between">
+          <span class="text-ellipsis"><%= format_quantity line.quantity %> x <%= line.item_name %></span>
+          <span class="whitespace-nowrap"><%= format_amount line.subtotal %></span>
+        </div>
+      <% end %>
+
+      <% @document.taxes.each do |tax| %>
+        <div class="flex items-center space-x-3 justify-between truncate">
+          <span class="text-ellipsis"><%= tax.sales_tax.name %></span>
+          <span class="whitespace-nowrap"><%= format_amount tax.amount %></span>
+        </div>
+      <% end %>
+
+      <div class="flex items-center space-x-3 justify-end">
+        <span class="whitespace-nowrap"><%= format_amount(@document.total) %></span>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @document.respond_to? :actions %>
+  <div>
+    <div class="-mt-px flex divide-x divide-gray-200">
+      <div class="flex w-0 flex-1">
+        <% @document.actions[:primary].each do |action| %>
+          <%= link_to action[:route],
+                      data: {
+                        turbo_method: action[:turbo_method] || :get,
+                        turbo_frame: action[:turbo_frame] || :_top
+                      },
+                      class: 'relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500' do %>
+            <div class="flex items-center gap-1">
+              <%= inline_svg_tag action[:icon], class: 'w-5 h-5 text-gray-400' %>
+              <span class="ml-3"><%= action[:label] %></span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="-ml-px flex w-14 flex-none">
+        <div class="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500 pr-3">
+          <%= render DropdownComponent.new(title: 'account menu', mode: 'light') do |c| %>
+            <%= c.with_toggle do %>
+              <%= inline_svg_tag 'mini/ellipsis-vertical', class: 'h-5 w-5' %>
+            <% end %>
+
+            <%= c.with_links do %>
+              <% @document.actions[:secondary].each do |action| %>
+                <%= link_to action[:route],
+                            class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 flex items-center gap-4',
+                            data: {
+                              turbo_method: action[:turbo_method] || :get,
+                              turbo_frame: action[:turbo_frame] || :_top
+                            },
+                            role: 'menuitem',
+                            tabindex: -1 do %>
+                  <%= inline_svg_tag action[:icon], class: 'w-5 h-5 text-gray-500' %>
+                  <%= action[:label] %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

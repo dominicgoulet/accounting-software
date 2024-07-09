@@ -1,0 +1,36 @@
+<div class="datatable-container">
+  <div class="datatable-toolbar">
+    <h2 class="grow">Recorded payments</h2>
+
+    <%= button_to new_payment_path(@commercial_document), method: :get, class: 'btn btn-primary gap-2', data: { turbo_frame: 'modal' } do %>
+      <%= inline_svg_tag 'plus' %>
+      Record a payment
+    <% end %>
+  </div>
+
+  <%= turbo_stream_from [current_organization, @commercial_document, :payments] %>
+
+  <div class="datatable">
+    <div class="datatable-header">
+      <div class="w-28">
+        Date
+      </div>
+
+      <div class="w-28">
+        Amount
+      </div>
+
+      <div class="w-60">
+        Account
+      </div>
+
+      <div class="grow">
+        Bank transaction
+      </div>
+    </div>
+
+    <%= turbo_frame_tag :commercial_document_payments do %>
+      <%= render commercial_document_payments %>
+    <% end %>
+  </div>
+</div>

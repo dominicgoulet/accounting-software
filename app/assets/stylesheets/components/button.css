@@ -1,0 +1,71 @@
+.button { @apply
+  inline-flex
+  items-center
+  justify-center
+
+  rounded-md
+  shadow-sm
+
+  w-full
+
+  border
+  border-transparent
+
+  px-4
+  py-2
+
+  text-sm
+  font-medium
+
+  focus:outline-none
+  focus:ring-2
+  focus:ring-offset-2
+
+  sm:w-auto
+  sm:text-sm
+}
+
+.button__image { @apply
+  w-5
+  h-5
+}
+
+.button--block { @apply
+  sm:w-full
+}
+
+.button--page-action { @apply
+  text-white
+  bg-teal-600
+  hover:bg-teal-700
+  focus:ring-teal-500
+}
+
+.button--primary { @apply
+  text-white
+  bg-indigo-600
+  hover:bg-indigo-700
+  focus:ring-indigo-500
+}
+
+.button--neutral { @apply
+  border-gray-300
+  text-gray-700
+  bg-white
+  hover:text-gray-500
+  focus:ring-indigo-500
+}
+
+.button--skip { @apply
+  text-white
+  bg-gray-600
+  hover:bg-gray-700
+  focus:ring-gray-500
+ }
+
+.button--danger { @apply
+  text-white
+  bg-red-600
+  hover:bg-red-700
+  focus:ring-red-500
+}

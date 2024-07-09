@@ -1,0 +1,59 @@
+<%= form_with model: [commercial_document, payment] do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Invoice payment</h3>
+          <p class="mt-1 text-sm text-gray-500">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-6">
+            <%= render ComboboxComponent.new(
+                  form: form,
+                  field: :account_id,
+                  kind: 'account',
+                  options: current_organization.accounts,
+                  initial_value: form.object.account&.display_name) %>
+            <%= form_error_notification(form, :account) %>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :date, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.date_field :date, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :date) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <%= form.label :amount, class: 'form__label' %>
+
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                <span class="text-gray-500 sm:text-sm">$</span>
+              </div>
+              <%= form.text_field :amount, placeholder: '0.00', class: 'block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm' %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <span class="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+              </div>
+              <%= form_error_notification(form, :amount) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= render AttachedFilesUploadComponent.new(form: form) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

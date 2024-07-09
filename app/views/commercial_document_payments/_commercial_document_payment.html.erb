@@ -1,0 +1,44 @@
+<div class="datatable-row" id="<%= dom_id(payment) %>">
+  <div class="w-28">
+    <%= payment.date %>
+  </div>
+
+  <div class="w-28">
+    <%= format_amount(payment.amount) %>
+  </div>
+
+  <div class="w-60">
+    <%= payment.account.display_name %>
+  </div>
+
+  <div class="grow">
+    <% payment.bank_transactions.each do |bank_transaction| %>
+      [<%= bank_transaction.date %>]
+      <%= bank_transaction.name %>
+      (<%= format_amount(bank_transaction.amount.abs) %>)
+    <% end %>
+  </div>
+
+  <div class="dropdown dropdown-end w-8">
+    <label tabindex="0" class="btn btn-sm btn-ghost">
+      <%= inline_svg_tag 'ellipsis-vertical' %>
+    </label>
+
+    <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box">
+      <li>
+        <%= link_to edit_payment_path(payment), method: :get, class: 'action-button', data: { turbo_frame: 'modal' } do %>
+          <%= inline_svg_tag 'pencil' %>
+          Edit
+        <% end %>
+      </li>
+      <li>
+        <%= link_to payment_path(payment), method: :delete, class: 'delete-button', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+          <%= inline_svg_tag 'trash' %>
+          Delete
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</div>
+
+

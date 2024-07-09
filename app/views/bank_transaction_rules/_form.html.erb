@@ -1,0 +1,292 @@
+<%= form_with model: bank_transaction_rule, data: { controller: 'steps' } do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <%= render partial: 'bank_transactions/excerpt', locals: { bank_transaction: @bank_transaction } if @bank_transaction.present? %>
+
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div class="mb-4">
+          <nav aria-label="Progress">
+            <ol role="list" class="divide-y divide-gray-300 rounded-md border border-gray-300 md:flex md:divide-y-0">
+              <%
+                steps = [
+                  {
+                    title: 'Rule information',
+                    name: 'information',
+                    label: 'Step details'
+                  },
+                  {
+                    title: 'Bank accounts',
+                    name: 'banking',
+                    label: 'Step details'
+                  },
+                  {
+                    title: 'Conditions',
+                    name: 'conditions',
+                    label: 'Step details'
+                  },
+                  {
+                    title: 'Actions',
+                    name: 'actions',
+                    label: 'Step details'
+                  },
+                  {
+                    title: 'Preview',
+                    name: 'preview',
+                    label: 'Step details'
+                  }
+                ]
+
+                steps.each_with_index do |step, index|
+              %>
+                <li class="relative md:flex md:flex-1">
+                  <div class="group flex w-full items-center cursor-pointer" data-action="click->steps#setStep" data-step-id="<%= index %>" data-steps-target="tab">
+                    <span class="hidden completed flex items-center px-6 py-4 text-sm font-medium">
+                      <!-- Completed Step -->
+                      <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 group-hover:bg-indigo-800">
+                        <%= inline_svg_tag 'solid/check', class: 'h-6 w-6 text-white' %>
+                      </span>
+                      <span class="ml-4 text-sm font-medium text-gray-900"><%= step[:title] %></span>
+                    </span>
+
+                    <span class="<% if index > 0 %>hidden <% end %>current flex items-center px-6 py-4 text-sm font-medium">
+                      <!-- Current Step -->
+                      <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-indigo-600">
+                        <span class="text-indigo-600">0<%= index + 1 %></span>
+                      </span>
+                      <span class="ml-4 text-sm font-medium text-indigo-600"><%= step[:title] %></span>
+                    </span>
+
+                    <span class="<% if index == 0 %>hidden <% end %>upcoming flex items-center px-6 py-4 text-sm font-medium">
+                      <!-- Upcoming Step -->
+                      <span class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 group-hover:border-gray-400">
+                        <span class="text-gray-500 group-hover:text-gray-900">0<%= index + 1 %></span>
+                      </span>
+                      <span class="ml-4 text-sm font-medium text-gray-500 group-hover:text-gray-900"><%= step[:title] %></span>
+                    </span>
+                  </div>
+
+                  <% if index < steps.size - 1 %>
+                  <!-- Arrow separator for lg screens and up -->
+                  <div class="absolute top-0 right-0 hidden h-full w-5 md:block" aria-hidden="true">
+                    <svg class="h-full w-full text-gray-300" viewBox="0 0 22 80" fill="none" preserveAspectRatio="none">
+                      <path d="M0 -2L20 40L0 82" vector-effect="non-scaling-stroke" stroke="currentcolor" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                  <% end %>
+                </li>
+              <% end %>
+            </ol>
+          </nav>
+        </div>
+
+        <div data-steps-target="tabContent" data-step-id="0" data-step-name="information" class="block">
+          <div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Rule information</h3>
+            <p class="mt-1 text-sm text-gray-500">
+               An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+            </p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-2">
+              <%= form.label :name, class: 'form__label' %>
+
+              <div class="mt-1">
+                <%= form.text_field :name, autofocus: true, class: 'form__input' %>
+                <%= form_error_notification(form, :name) %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <%= form.label :match_debit_or_credit, class: 'form__label' %>
+
+              <div class="mt-1">
+                <%= form.select :match_debit_or_credit,
+                                ['debit' ,'credit'],
+                                {},
+                                class: 'form__input' %>
+                <%= form_error_notification(form, :match_debit_or_credit) %>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-steps-target="tabContent" data-step-id="1" data-step-name="banking" class="hidden">
+          <div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Rule information</h3>
+            <p class="mt-1 text-sm text-gray-500">
+               An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+            </p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-6">
+              <%= form.label :bank_account_ids, class: 'form__label' %>
+
+              <div class="mt-1">
+                <fieldset class="space-y-5">
+                  <legend class="sr-only">Notifications</legend>
+
+                  <%= form.collection_check_boxes(:bank_account_ids, current_organization.bank_accounts, :id, :name) do |b| %>
+                    <%= b.label class: 'relative flex items-start' do %>
+                        <div class="flex h-5 items-center">
+                          <%= b.check_box class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500' %>
+                        </div>
+                        <div class="ml-3 text-sm">
+                          <span class="font-medium text-gray-700"><%= b.text %></span>
+                          <span id="comments-description" class="text-gray-500"><span class="sr-only">New comments </span>so you always know what's happening.</span>
+                        </div>
+                      <% end %>
+                  <% end %>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-steps-target="tabContent" data-step-id="2" data-step-name="conditions" class="hidden">
+          <div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Rule information</h3>
+            <p class="mt-1 text-sm text-gray-500">
+               An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+            </p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div data-controller="nested-form" class="sm:col-span-6">
+              <div class="form-row">
+                <label>Conditions</label>
+
+                <div class="flex">
+                  <%= form.label :match_all_conditions do %>
+                    <div class="flex items-center text-xs gap-4">
+                      <div>OR (match any condition)</div>
+                      <%= form.check_box :match_all_conditions, class: 'toggle' %>
+                      <div>AND (match all conditions)</div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+              <div class="hidden sm:grid sm:col-span-12 grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12 bg-gray-100 py-4 -mx-6 px-6 mb-4">
+                <div class="sm:col-span-3"><span class="form__label">Field</span></div>
+                <div class="sm:col-span-2"><span class="form__label">Condition</span></div>
+                <div class="sm:col-span-6"><span class="form__label">Value</span></div>
+              </div>
+
+              <template data-nested-form-target="template">
+                <%= form.fields_for :bank_transaction_rule_conditions, BankTransactionRuleCondition.new, child_index: 'NEW_RECORD' do |condition_form| %>
+                  <%= render "bank_transaction_rule_conditions/form", form: condition_form %>
+                <% end %>
+              </template>
+
+              <%= form.fields_for :bank_transaction_rule_conditions do |condition_form|%>
+                <%= render "bank_transaction_rule_conditions/form", form: condition_form %>
+              <% end %>
+
+              <div data-nested-form-target="target"></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-steps-target="tabContent" data-step-id="3" data-step-name="actions" class="hidden">
+          <div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Rule information</h3>
+            <p class="mt-1 text-sm text-gray-500">
+               An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+            </p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-2">
+              <%= form.label :action, class: 'form__label' %>
+
+              <div class="mt-1">
+                <%= form.select :action,
+                                ['describe' ,'reject'],
+                                {},
+                                class: 'form__input' %>
+                <%= form_error_notification(form, :action) %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <%= form.label :document_type, class: 'form__label' %>
+
+              <div class="mt-1">
+                <%= form.select :document_type,
+                                ['Deposit' ,'Expense', 'Transfer'],
+                                {},
+                                class: 'form__input' %>
+                <%= form_error_notification(form, :document_type) %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <%= render ComboboxComponent.new(
+                    form: form,
+                    field: :contact_id,
+                    kind: 'contact',
+                    options: current_organization.contacts,
+                    initial_value: form.object.contact&.display_name) %>
+              <%= form_error_notification(form, :contact) %>
+            </div>
+
+
+            <div data-controller="nested-form" class="sm:col-span-6">
+              <div class="hidden sm:grid sm:col-span-12 grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12 bg-gray-100 py-4 -mx-6 px-6 mb-4">
+                <div class="sm:col-span-6"><span class="form__label">Account</span></div>
+                <div class="sm:col-span-2"><span class="form__label">Percentage</span></div>
+                <div class="sm:col-span-3"><span class="form__label">Taxes</span></div>
+              </div>
+
+              <template data-nested-form-target="template">
+                <%= form.fields_for :bank_transaction_rule_document_lines, BankTransactionRuleDocumentLine.new, child_index: 'NEW_RECORD' do |document_line_form| %>
+                  <%= render "bank_transaction_rule_document_lines/form", form: document_line_form, document_name: 'deposit' %>
+                <% end %>
+              </template>
+
+              <%= form.fields_for :bank_transaction_rule_document_lines do |document_line_form|%>
+                <%= render "bank_transaction_rule_document_lines/form", form: document_line_form, document_name: 'deposit' %>
+              <% end %>
+
+              <div data-nested-form-target="target"></div>
+            </div>
+          </div>
+        </div>
+
+        <div data-steps-target="tabContent" data-step-id="4" data-step-name="preview" class="hidden">
+          <div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Rule information</h3>
+            <p class="mt-1 text-sm text-gray-500">
+               An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+            </p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <% BankTransactionMatcher.verify_rule(bank_transaction_rule).each do |match| %>
+            <pre><%= match.name %> | <%= match.amount %> | <%= match.debit %> | <%= match.credit %></pre>
+            <% end if bank_transaction_rule.persisted? %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-end gap-x-4 mb-4 sm:mb-auto px-4 py-3 sm:px-6">
+    <button type="button" data-action="click->steps#previousStep" class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex gap-x-2 items-center w-full sm:w-auto">
+      <%= inline_svg_tag 'mini/chevron-left', class: 'h-5 w-5 text-gray-400' %>
+      <span class="text-gray-600">Back</span>
+    </button>
+
+    <button type="button" data-action="click->steps#nextStep" class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 flex gap-x-2 items-center w-full sm:w-auto">
+      <span class="text-gray-600">Next</span>
+      <%= inline_svg_tag 'mini/chevron-right', class: 'h-5 w-5 text-gray-400' %>
+    </button>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

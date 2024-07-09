@@ -1,0 +1,62 @@
+<div class="py-6 px-4 sm:px-6 lg:px-8">
+  <%= render 'header' %>
+
+  <%= turbo_stream_from [current_organization, :business_units] %>
+
+  <div class="sm:flex sm:items-top mt-10">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold text-gray-900">Business units</h1>
+      <p class="mt-2 text-sm text-gray-700">
+        A list of financial accounts for recording transactions in the organization's general ledger. Accounts may be added to the chart of accounts as needed; they would not generally be removed, especially if any transaction had been posted to the account or if there is a non-zero balance.
+      </p>
+    </div>
+
+    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+      <%= button_to new_business_unit_path, method: :get, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto', data: { turbo_frame: 'modal' } do %>
+        Add business unit
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-8 flex flex-col" data-controller="datatable">
+    <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+
+          <div class="relative">
+            <div class="hidden absolute top-0 left-12 flex h-12 items-center space-x-3 bg-gray-50 sm:left-16" data-datatable-target="batchActions">
+              <%= form_with(url: destroy_many_business_units_path, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } ) do |form| %>
+                <span data-datatable-target="identifiers"></span>
+
+                <button type="submit" class="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30" data-datatable-target="actionButton">
+                  Delete selected
+                </button>
+              <% end %>
+            </div>
+          </div>
+
+          <table class="min-w-full table-fixed divide-y divide-gray-300">
+            <thead class="bg-gray-50">
+              <tr>
+                <th scope="col" class="relative w-12 px-6 sm:w-16 sm:px-8">
+                  <%= master_checkbox %>
+                </th>
+                <th scope="col" class="min-w-[12rem] py-3.5 pr-3 text-left text-sm font-semibold text-gray-900">
+                  <%= sort_link @q, :name %>
+                </th>
+                <th scope="col" class="relative w-12">
+                  <span class="sr-only">Edit</span>
+                </th>
+              </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200 bg-white" id="business_units">
+              <%= render @business_units %>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

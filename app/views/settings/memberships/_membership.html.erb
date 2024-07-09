@@ -1,0 +1,67 @@
+<tr id="<%= dom_id(membership) %>">
+  <td class="relative w-12 px-6 sm:w-16 sm:px-8">
+    <div class="row-marker absolute inset-y-0 left-0 w-0.5 bg-indigo-600"></div>
+    <%= children_checkbox(membership.id) %>
+  </td>
+
+  <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium text-gray-900">
+    <div class="flex items-center space-x-4">
+      <div class="flex-shrink-0">
+        <img class="h-8 w-8 rounded-full" src="<%= membership.user.avatar_url %>" alt="">
+      </div>
+
+      <div class="min-w-0 flex-1">
+        <div class="relative flex items-start py-2">
+          <div class="min-w-0 flex-1 text-sm">
+            <p class="truncate text-sm font-medium text-gray-900">
+              <%= membership.display_name %>
+            </p>
+            <p class="truncate text-sm text-gray-500">
+              <%= membership.user.email %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </td>
+
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <span class="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800"><%= membership.level %></span>
+  </td>
+
+  <td class="whitespace-nowrap px-3 sm:px-0 py-4">
+     <%= render DropdownComponent.new(title: 'account menu', mode: 'light') do |c| %>
+        <%= c.with_toggle do %>
+          <%= inline_svg_tag 'mini/ellipsis-vertical', class: 'h-5 w-5' %>
+        <% end %>
+
+        <%= c.with_links do %>
+          <% if membership.level.admin? %>
+            <%= link_to demote_membership_path(membership),
+                      class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                      data: { turbo_method: :patch },
+                      role: 'menuitem',
+                      tabindex: -1 do %>
+              Demote <span class="sr-only">, <%= membership.user.email %></span>
+            <% end %>
+          <% elsif membership.level.member? %>
+            <%= link_to promote_membership_path(membership),
+                      class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                      data: { turbo_method: :patch },
+                      role: 'menuitem',
+                      tabindex: -1 do %>
+              Promote <span class="sr-only">, <%= membership.user.email %></span>
+            <% end %>
+          <% end %>
+
+          <%= link_to membership,
+                      class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                      role: 'menuitem',
+                      tabindex: -1 do %>
+            Remove <span class="sr-only">, <%= membership.user.email %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+  </td>
+</tr>

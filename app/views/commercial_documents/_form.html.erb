@@ -1,0 +1,164 @@
+<div class="px-4 py-5 sm:p-6" data-controller="nested-form" data-nested-form-wrapper-selector-value=".nested-form-wrapper">
+  <% form.object.transactions.each do |bank_transaction| %>
+    <%= render partial: 'bank_transactions/excerpt', locals: { bank_transaction: bank_transaction } %>
+  <% end %>
+
+  <div class="space-y-8 divide-y divide-gray-200">
+    <div>
+      <div>
+        <h3 class="text-lg font-medium leading-6 text-gray-900"><%= form.object.type %></h3>
+        <p class="mt-1 text-sm text-gray-500">
+           An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+        </p>
+      </div>
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-12">
+        <div class="sm:col-span-3">
+          <%= render ComboboxComponent.new(
+                form: form,
+                field: :contact_id,
+                kind: 'contact',
+                options: current_organization.contacts,
+                initial_value: form.object.contact&.display_name) %>
+          <%= form_error_notification(form, :contact) %>
+        </div>
+
+        <% if form.object.accountable? %>
+          <div class="sm:col-span-3">
+            <%= render ComboboxComponent.new(
+                  form: form,
+                  field: :account_id,
+                  kind: 'account',
+                  options: current_organization.accounts,
+                  initial_value: form.object.account&.display_name) %>
+            <%= form_error_notification(form, :account) %>
+          </div>
+        <% end %>
+
+        <div class="sm:col-span-2">
+          <%= form.label :date, class: 'form__label' %>
+
+          <div class="mt-1">
+            <%= form.date_field :date, autofocus: true, class: 'form__input' %>
+            <%= form_error_notification(form, :date) %>
+          </div>
+        </div>
+
+        <% if form.object.expirable? %>
+          <div class="sm:col-span-2">
+            <%= form.label :due_date, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.date_field :due_date, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :due_date) %>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="sm:col-span-2">
+          <%= form.label :number, class: 'form__label' %>
+
+          <div class="mt-1">
+            <%= form.text_field :number, class: 'form__input' %>
+            <%= form_error_notification(form, :number) %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-3">
+          <%= form.label :taxes_calculation, class: 'form__label' %>
+
+          <div class="mt-1">
+            <%= form.select :taxes_calculation,
+                            CommercialDocument.taxes_calculation.values.map { |v| ["Taxes #{v}", v] },
+                            {},
+                            data: {
+                              nested_form_target: 'taxesCalculation',
+                              action: 'nested-form#switchTaxesCalculation',
+                              initial_value: form.object.taxes_calculation
+                            },
+                            class: 'form__input' %>
+            <%= form_error_notification(form, :taxes_calculation) %>
+          </div>
+        </div>
+
+        <div class="hidden sm:grid sm:col-span-12 grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12 bg-gray-100 py-4 -mx-6 px-6 mb-4">
+          <div class="sm:col-span-3"><span class="form__label">Category</span></div>
+          <div class="sm:col-span-3"><span class="form__label">Description</span></div>
+          <div class="sm:col-span-2"><span class="form__label">Taxes</span></div>
+          <div class="sm:col-span-1"><span class="form__label">Quantity</span></div>
+          <div class="sm:col-span-1"><span class="form__label">Unit price</span></div>
+          <div class="sm:col-span-1"><span class="form__label">Subtotal</span></div>
+        </div>
+
+        <div class="sm:-mt-6 sm:col-span-12 grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-6">
+          <template data-nested-form-target="template">
+            <%= form.fields_for :lines, CommercialDocumentLine.new(quantity: 1, unit_price: 0), child_index: 'NEW_RECORD' do |line_form| %>
+              <%= render "commercial_document_lines/form", form: line_form, document_name: document_name %>
+            <% end %>
+          </template>
+
+          <%= form.fields_for :lines do |line_form|%>
+            <%= render "commercial_document_lines/form", form: line_form, document_name: document_name %>
+          <% end %>
+
+          <div data-nested-form-target="target"></div>
+        </div>
+
+        <div class="sm:-mt-6 sm:col-span-12 grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-6">
+          <div class="col-span-6 grid grid-cols-1 gap-y-4" data-nested-form-target="footer">
+            <% current_organization.sales_taxes.each_with_index do |sales_tax, index| %>
+              <% tax = form.object.taxes.find_by(sales_tax_id: sales_tax.id) %>
+
+              <div class="sm:grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12 items-center" data-nested-form-target="salesTax" data-rate="<%= sales_tax.rate %>">
+                <div class="col-span-9 text-right text-sm font-medium text-gray-700">
+                  <%= sales_tax.name %>
+                </div>
+
+                <div class="col-span-2">
+                  <%= hidden_field "[#{form.object_name}]taxes_attributes[#{index}]", :id, value: tax&.id %>
+                  <%= hidden_field "[#{form.object_name}]taxes_attributes[#{index}]", :sales_tax_id, value: sales_tax.id %>
+
+                  <div class="relative mt-1 rounded-md shadow-sm">
+                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <%= text_field "[#{form.object_name}]taxes_attributes[#{index}]", :amount, value: format_amount(tax&.amount), class: 'taxSubtotal form__input text-right', data: { action: 'blur->nested-form#updateTaxes' }, disabled: tax&.calculate_from_rate || !tax.present? %>
+                  </div>
+                </div>
+
+                <div class="col-span-1 flex justify-end">
+                  <%= render SwapComponent.new(
+                    name: "[#{form.object_name}]taxes_attributes[#{index}]",
+                    field_name: :calculate_from_rate,
+                    checked: tax&.calculate_from_rate || !tax.present?,
+                    data: { nested_form_target: 'calculateFromRate', action: 'nested-form#updateTaxField' }) %>
+                </div>
+              </div>
+            <% end %>
+
+            <div class="sm:grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12 items-center">
+              <div class="col-span-9 text-right text-sm font-medium text-gray-700">
+                Total
+              </div>
+              <div class="col-span-2">
+                <div class="relative mt-1 rounded-md shadow-sm">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span class="text-gray-500 sm:text-sm">$</span>
+                  </div>
+                  <%= form.text_field :number, class: 'form__input text-right', data: { nested_form_target: :total }, disabled: true %>
+                </div>
+              </div>
+              <div class="col-span-1">
+                &nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sm:col-span-12">
+          <%= render AttachedFilesUploadComponent.new(form: form) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

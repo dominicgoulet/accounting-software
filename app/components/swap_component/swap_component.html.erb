@@ -1,0 +1,16 @@
+<label
+  class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm cursor-pointer"
+  data-controller="swap-component--swap-component"
+  data-action="click->swap-component--swap-component#swap"
+  data-swap-component--swap-component-target="label">
+
+  <%= check_box @name, @field_name, { checked: @checked, class: 'hidden', data: @data }, 'true', 'false' %>
+
+  <div data-swap-component--swap-component-target="swapOn" class="swap-on <% if @checked %> hidden <% end %>">
+    <%= inline_svg_tag 'mini/receipt-percent', class: 'w-5 h-5' %>
+  </div>
+
+  <div data-swap-component--swap-component-target="swapOff" class="swap-off <% if !@checked %> hidden <% end %>">
+    <%= inline_svg_tag 'mini/pencil-square', class: 'w-5 h-5' %>
+  </div>
+</label>

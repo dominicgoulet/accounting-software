@@ -1,0 +1,3 @@
+<div id="<%= dom_id(bill_payment) %>">
+  Payment of <%= format_amount(bill_payment.amount) %> applied towards bill from <%= bill_payment.bill.contact.display_name %> (<%= bill_payment.bill.date %>).
+</div>

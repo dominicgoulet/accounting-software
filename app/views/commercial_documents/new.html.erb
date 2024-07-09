@@ -1,0 +1,10 @@
+<%= render ModalComponent.new(wide: true) do %>
+  <%= form_with model: @commercial_document do |form| %>
+    <%= render 'commercial_documents/form', form: form, document_name: 'invoice' %>
+
+    <div class="modal__footer">
+      <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+      <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,73 @@
+<div id="<%= dom_id(user) %>">
+  <div class="mt-8 divide-y divide-gray-200">
+    <div class="space-y-1">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">General information</h3>
+      <p class="max-w-2xl text-sm text-gray-500">This information will be displayed publicly so be careful what you share.</p>
+    </div>
+
+    <div class="mt-6">
+      <dl class="divide-y divide-gray-200">
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+          <dt class="text-sm font-medium text-gray-500">Name</dt>
+          <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <span class="flex-grow"><%= user.first_name %> <%= user.last_name %></span>
+
+            <span class="ml-4 flex-shrink-0">
+              <%= link_to edit_user_path(user), data: { turbo_frame: 'modal' }, class: 'rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' do %>
+                Edit
+              <% end %>
+            </span>
+          </dd>
+        </div>
+
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+          <dt class="text-sm font-medium text-gray-500">Email</dt>
+          <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <span class="flex-grow">
+              <%= user.email %>
+
+              <% if user.unconfirmed_email.present? %>
+                <div class="mt-2 text-gray-500">
+                  You requested to change your email to
+                  <span class="font-bold"><%= user.unconfirmed_email %></span>.
+                  Please check your emails to confirm or
+                  <%= link_to 'cancel change', cancel_change_email_user_path(user), data: { turbo_method: :patch }, class: 'text-indigo-600 hover:text-indigo-900' %>.
+                </div>
+              <% end %>
+            </span>
+
+            <span class="ml-4 flex-shrink-0">
+              <%= link_to edit_user_path(user), data: { turbo_frame: 'modal' }, class: 'rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' do %>
+                Edit
+              <% end %>
+            </span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="mt-8 divide-y divide-gray-200">
+    <div class="space-y-1">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Security</h3>
+      <p class="max-w-2xl text-sm text-gray-500">This information will be displayed publicly so be careful what you share.</p>
+    </div>
+
+    <div class="mt-6">
+      <dl class="divide-y divide-gray-200">
+        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+          <dt class="text-sm font-medium text-gray-500">Password</dt>
+          <dd class="mt-1 flex text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <span class="flex-grow">********</span>
+
+            <span class="ml-4 flex-shrink-0">
+              <%= link_to change_password_user_path(user), data: { turbo_frame: 'modal' }, class: 'rounded-md bg-white font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' do %>
+                Change password
+              <% end %>
+            </span>
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>

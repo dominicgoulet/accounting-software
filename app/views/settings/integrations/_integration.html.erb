@@ -1,0 +1,58 @@
+<tr id="<%= dom_id(integration) %>">
+  <td class="relative w-12 px-6 sm:w-16 sm:px-8">
+    <% if !integration.system? %>
+    <div class="row-marker absolute inset-y-0 left-0 w-0.5 bg-indigo-600"></div>
+    <%= children_checkbox(integration.id) %>
+    <% end %>
+  </td>
+
+  <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium text-gray-900">
+    <% if integration.system? %>
+      <span class="inline-flex items-center rounded bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-800">
+        system
+      </span>
+    <% end %>
+
+    <%= integration.name %>
+  </td>
+
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+    <%= integration.internal_code %>
+  </td>
+
+  <td class="whitespace-nowrap px-3 sm:px-0 py-4">
+    <% if !integration.system? %>
+     <%= render DropdownComponent.new(title: 'account menu', mode: 'light') do |c| %>
+        <%= c.with_toggle do %>
+          <%= inline_svg_tag 'mini/ellipsis-vertical', class: 'h-5 w-5' %>
+        <% end %>
+
+        <%= c.with_links do %>
+          <%= link_to edit_integration_path(integration),
+                      class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                      data: { turbo_frame: 'modal' },
+                      role: 'menuitem',
+                      tabindex: -1 do %>
+            Edit <span class="sr-only">, <%= integration.name %></span>
+          <% end %>
+
+          <%= link_to audit_trail_path(auditable_type: integration.class.name, auditable_id: integration.id),
+                    class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                    data: { turbo_frame: 'modal' },
+                    role: 'menuitem',
+                    tabindex: -1 do %>
+          View history <span class="sr-only">, <%= integration.name %></span>
+        <% end %>
+
+          <%= link_to integration,
+                      class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                      role: 'menuitem',
+                      tabindex: -1 do %>
+            Delete <span class="sr-only">, <%= integration.name %></span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

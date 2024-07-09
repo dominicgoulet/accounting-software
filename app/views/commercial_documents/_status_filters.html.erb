@@ -1,0 +1,29 @@
+<div class="flex gap-6 mb-2 w-full">
+  <%= link_to polymorphic_path([document_name.pluralize.to_sym]), class: class_names('border-t-4 px-1 w-full py-3', {'border-primary': @status.nil?}) do %>
+    <div>
+      All
+      <span id="filters-<%= document_name.pluralize %>-count">
+        <%= eval("current_organization.#{document_name.pluralize}").size %>
+      </span>
+    </div>
+
+    <span>
+      <%= t("#{document_name.pluralize}.statuses.all") %>
+    </span>
+  <% end %>
+
+  <% document_name.camelize.constantize.status.values.each do |status| %>
+    <%= link_to polymorphic_path([document_name.pluralize.to_sym, :status], status: status), class: class_names('border-t-4 px-1 w-full py-3', {'border-primary': @status == status}) do %>
+      <div class="font-semibold">
+        <%= status.capitalize %>
+        <span class="float-right text-xs badge badge-primary badge-outline" id="filters-<%= document_name.pluralize %>-<%= status %>-count">
+          <%= eval("current_organization.#{document_name.pluralize}").where(status: status).size %>
+        </span>
+      </div>
+
+      <span>
+        <%= t("#{document_name.pluralize}.statuses.#{status}") %>
+      </span>
+    <% end %>
+  <% end %>
+</div>

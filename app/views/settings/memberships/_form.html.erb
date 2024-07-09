@@ -1,0 +1,25 @@
+<%= form_with model: Membership.new do |form| %>
+  <div class="space-y-2">
+    <div class="space-y-1">
+      <%= form.label :email, class: 'form__label' do %>
+        Invite members
+      <% end %>
+
+      <p id="add-team-members-helper" class="sr-only">Search by email address</p>
+
+      <div class="flex">
+        <div class="flex-grow">
+          <%= form.text_field :email, placeholder: 'Email address', class: 'form__input' %>
+          <%= form_error_notification(form, :email) %>
+        </div>
+
+        <span class="ml-3">
+          <button type="submit" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <%= inline_svg_tag 'mini/plus', class: '-ml-2 mr-1 h-5 w-5 text-gray-400' %>
+            <span>Invite</span>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>

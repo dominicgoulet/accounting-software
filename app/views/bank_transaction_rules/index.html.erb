@@ -1,0 +1,64 @@
+<%= turbo_stream_from [current_organization, :bank_transaction_rules] %>
+
+<% content_for :page_actions do %>
+  <%= button_to new_bank_transaction_rule_path, method: :get, class: 'button button--page-action', data: { turbo_frame: 'modal' } do %>
+    <%= inline_svg_tag 'mini/plus', class: 'button__image' %>
+  <% end %>
+<% end %>
+
+<div class="flex flex-col" data-controller="datatable">
+  <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+      <div class="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+
+        <div class="relative">
+          <div class="hidden absolute top-0 left-12 flex h-14 items-center space-x-3 bg-gray-50 sm:left-16" data-datatable-target="batchActions">
+            <%= form_with(url: destroy_many_bank_transaction_rules_path, method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } ) do |form| %>
+              <span data-datatable-target="identifiers"></span>
+
+              <button type="submit" class="inline-flex items-center rounded border border-gray-300 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-30" data-datatable-target="actionButton">
+                Delete selected
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <table class="min-w-full table-fixed divide-y divide-gray-300">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="relative w-16 px-6">
+                <%= master_checkbox %>
+              </th>
+              <th scope="col" class="py-5 pr-3 text-left text-sm font-semibold text-gray-900">
+                <%= sort_link @q, :name %>
+              </th>
+              <th scope="col" class="w-24 px-3 py-5 text-left text-sm font-semibold text-gray-900">
+                <%= sort_link @q, :match_debit_or_credit, 'Type' %>
+              </th>
+              <th scope="col" class="w-24 px-3 py-5 text-left text-sm font-semibold text-gray-900">
+                <%= sort_link @q, :action %>
+              </th>
+              <th scope="col" class="w-24 px-3 py-5 text-left text-sm font-semibold text-gray-900">
+                <%= sort_link @q, :document_type, 'Document' %>
+              </th>
+              <th scope="col" class="w-28 px-3 py-5 text-left text-sm font-semibold text-gray-900">
+                <%= sort_link @q, :auto_apply %>
+              </th>
+              <th scope="col" class="w-60 px-3 py-5 text-left text-sm font-semibold text-gray-900">
+                Actions
+              </th>
+              <th scope="col" class="relative w-14 text-right">
+                <span class="sr-only">Edit</span>
+              </th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y divide-gray-200 bg-white" id="bank_transaction_rules">
+            <%= render @bank_transaction_rules %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

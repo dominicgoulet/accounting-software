@@ -1,0 +1,50 @@
+<tr id="<%= dom_id(bank_transaction) %>">
+  <td class="relative px-6">
+    <div class="row-marker absolute inset-y-0 left-0 w-0.5 bg-indigo-600"></div>
+    <%= children_checkbox(bank_transaction.id) %>
+  </td>
+
+  <td class="whitespace-nowrap py-4 pr-3 text-sm text-gray-900">
+    <%= bank_transaction.date %>
+  </td>
+
+  <td class="whitespace-nowrap py-4 pr-3 text-sm text-gray-900 font-mono">
+    <%= bank_transaction.name %>
+  </td>
+
+  <td class="whitespace-nowrap py-4 pr-3 text-sm text-gray-900">
+    <%= status_badge(bank_transaction.status) %>
+  </td>
+
+  <td class="whitespace-nowrap py-4 pr-3 text-sm text-gray-900 text-right">
+    <% if bank_transaction.debit? %>
+      <span class="text-green-500"><%= format_amount(bank_transaction.debit) %></span>
+    <% elsif bank_transaction.credit? %>
+      <span class="text-red-500"><%= format_amount(bank_transaction.credit)  %></span>
+    <% end %>
+  </td>
+
+  <td class="whitespace-nowrap px-3 sm:px-0 py-4">
+     <%= render DropdownComponent.new(title: "bank transaction menu", mode: 'light') do |c| %>
+        <%= c.with_toggle do %>
+          <%= inline_svg_tag 'mini/ellipsis-vertical', class: 'h-5 w-5' %>
+        <% end %>
+
+        <%= c.with_links do %>
+          <% bank_transaction.actions.each do |action| %>
+            <%= link_to action[:route],
+                        data: {
+                          turbo_method: action[:turbo_method] || :get,
+                          turbo_frame: action[:turbo_frame] || :_top
+                        },
+                        class: 'block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex gap-2 items-center',
+                        role: 'menuitem',
+                        tabindex: -1 do %>
+              <%= action[:label] %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+  </td>
+</tr>
+

@@ -1,0 +1,121 @@
+<div class="flex justify-between items-center">
+  <% if document.contact.present? %>
+  <div class="px-4 py-5 sm:px-6 flex items-center space-x-3">
+    <div class="flex-shrink-0">
+      <img class="h-12 w-12 rounded-full" src="<%= document.contact.avatar_url %>" alt="">
+    </div>
+
+    <div>
+      <h2 id="applicant-information-title" class="text-lg font-medium leading-6 text-gray-900">
+        <%= document.contact.display_name %>
+      </h2>
+
+      <address class="mt-1 max-w-2xl text-sm text-gray-500">
+        <%= document.contact.address %>
+      </address>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="text-4xl font-medium leading-6 text-gray-500 uppercase mr-6">
+    <%= document.type %>
+  </div>
+</div>
+
+<div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+  <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="sm:col-span-1">
+      <dt class="text-sm font-medium text-gray-500">Number</dt>
+      <dd class="mt-1 text-sm text-gray-900"><%= document.number %></dd>
+    </div>
+
+    <% if document.transactionable? && document.transactions.any? %>
+    <div class="sm:col-span-1">
+      <dt class="text-sm font-medium text-gray-500">Related bank transactions</dt>
+      <% document.bank_transactions.each do |trx| %>
+      <dd class="mt-1 text-sm text-gray-900">
+        <%= trx.date %>
+        <%= trx.bank_account.name %>
+        <%= format_amount trx.amount.abs %>
+      </dd>
+      <% end %>
+    </div>
+    <% end %>
+
+    <% if document.accountable? %>
+    <div class="sm:col-span-1">
+      <dt class="text-sm font-medium text-gray-500">Related account</dt>
+      <dd class="mt-1 text-sm text-gray-900"><%= document.account.display_name %></dd>
+    </div>
+    <% end %>
+
+    <div class="sm:col-span-1">
+      <dt class="text-sm font-medium text-gray-500">Date</dt>
+      <dd class="mt-1 text-sm text-gray-900"><%= document.date %> (<%= time_from_now document.date %>)</dd>
+    </div>
+
+    <% if document.expirable? %>
+    <div class="sm:col-span-1">
+      <dt class="text-sm font-medium text-gray-500">Due on</dt>
+      <dd class="mt-1 text-sm text-gray-900"><%= document.due_date %> (<%= time_from_now document.due_date %>)</dd>
+    </div>
+    <% end %>
+
+    <div class="sm:col-span-1">
+      <dt class="text-sm font-medium text-gray-500">Total</dt>
+      <dd class="mt-1 text-sm text-gray-900"><%= format_amount(document.total) %></dd>
+    </div>
+
+    <% if document.payable? %>
+    <div class="sm:col-span-1">
+      <dt class="text-sm font-medium text-gray-500">Amount due</dt>
+      <dd class="mt-1 text-sm text-gray-900"><%= format_amount(document.amount_due) %></dd>
+    </div>
+    <% end %>
+
+    <div class="sm:col-span-3">
+      <dd class="mt-1 text-sm text-gray-900">
+        <table class="min-w-full divide-y divide-gray-300">
+          <thead>
+            <tr>
+              <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-500 sm:pl-6 md:pl-0">Project</th>
+              <th scope="col" class="hidden py-3.5 px-3 text-right text-sm font-semibold text-gray-500 sm:table-cell">Hours</th>
+              <th scope="col" class="hidden py-3.5 px-3 text-right text-sm font-semibold text-gray-500 sm:table-cell">Rate</th>
+              <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-500 sm:pr-6 md:pr-0">Price</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= render partial: 'commercial_document_lines/commercial_document_line', collection: document.lines, as: :document_line %>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <th scope="row" colspan="3" class="hidden pl-6 pr-3 pt-6 text-right text-sm font-normal text-gray-500 sm:table-cell md:pl-0">Subtotal</th>
+              <th scope="row" class="pl-4 pr-3 pt-6 text-left text-sm font-normal text-gray-500 sm:hidden">Subtotal</th>
+              <td class="pl-3 pr-4 pt-6 text-right text-sm text-gray-500 sm:pr-6 md:pr-0"><%= format_amount(document.subtotal) %></td>
+            </tr>
+
+            <% document.taxes.each do |tax| %>
+            <tr>
+              <th scope="row" colspan="3" class="hidden pl-6 pr-3 pt-4 text-right text-sm font-normal text-gray-500 sm:table-cell md:pl-0"><%= tax.sales_tax.name %> <%= tax.sales_tax.rate %>% <%= tax.sales_tax.number %></th>
+              <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-normal text-gray-500 sm:hidden"><%= tax.sales_tax.name %> <%= tax.sales_tax.rate %>% <%= tax.sales_tax.number %></th>
+              <td class="pl-3 pr-4 pt-4 text-right text-sm text-gray-500 sm:pr-6 md:pr-0"><%= format_amount(tax.amount) %></td>
+            </tr>
+            <% end %>
+
+            <tr>
+              <th scope="row" colspan="3" class="hidden pl-6 pr-3 pt-4 text-right text-sm font-semibold text-gray-900 sm:table-cell md:pl-0">Total</th>
+              <th scope="row" class="pl-4 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">Total</th>
+              <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-6 md:pr-0"><%= format_amount(document.total) %></td>
+            </tr>
+          </tfoot>
+        </table>
+      </dd>
+    </div>
+
+    <div class="sm:col-span-3">
+      <%= render AttachedFilesListComponent.new(document.attached_files) %>
+    </div>
+  </dl>
+</div>

@@ -1,0 +1,100 @@
+<%= form_with model: @bank_transaction_transactionable, data: { controller: 'transactionable' } do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <%= render partial: 'bank_transactions/excerpt', locals: { bank_transaction: @bank_transaction } %>
+
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+
+        <div data-transactionable-target="initialValue" data-initial-value="<%= form.object.transactionable_type %>">
+          <div class="sm:hidden">
+            <label for="tabs" class="sr-only">Select a tab</label>
+            <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+            <select id="tabs" name="tabs" class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500" data-action="change->transactionable#pick" data-transactionable-target="select">
+              <option>-- Select a type --</option>
+              <% ['Transfer', 'Deposit', 'Expense', 'BillPayment', 'InvoicePayment'].each do |template| %>
+              <option value="<%= template %>"><%= template.capitalize %></option>
+              <% end %>
+            </select>
+          </div>
+
+          <div class="hidden sm:block">
+            <div class="border-b border-gray-200">
+              <nav class="-mb-px flex" aria-label="Tabs">
+                <% ['Transfer', 'Deposit', 'Expense', 'BillPayment', 'InvoicePayment'].each do |template| %>
+                  <label data-action="click->transactionable#tabSelected" data-transactionable-target="option" class="tab">
+                    <%= form.radio_button :transactionable_type, template, class: 'hidden' %>
+                    <%= template.capitalize %>
+                  </label>
+                <% end %>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <template data-transactionable-target="transferTemplate">
+          <%= form.fields_for :transactionable, Transfer.new(
+            to_account: @bank_transaction.amount > 0 ? nil : @bank_transaction.account,
+            from_account: @bank_transaction.amount > 0 ? @bank_transaction.account : nil,
+            date: @bank_transaction.date,
+            amount: @bank_transaction.amount.abs,
+            note: @bank_transaction.name,
+            ) do |transactionable_form| %>
+            <%= render "bank_transaction_transactionables/forms/transfer", form: transactionable_form %>
+          <% end %>
+        </template>
+
+        <template data-transactionable-target="depositTemplate">
+          <%= form.fields_for :transactionable, Deposit.new(
+            account: @bank_transaction.account,
+            date: @bank_transaction.date,
+            deposit_lines: [
+              DepositLine.new(
+                quantity: 1,
+                unit_price: @bank_transaction.amount.abs,
+                description: @bank_transaction.name)
+            ]) do |transactionable_form| %>
+            <%= render "bank_transaction_transactionables/forms/deposit", form: transactionable_form %>
+          <% end %>
+        </template>
+
+        <template data-transactionable-target="expenseTemplate">
+          <%= form.fields_for :transactionable, Expense.new(
+            account: @bank_transaction.account,
+            date: @bank_transaction.date,
+            expense_lines: [
+              ExpenseLine.new(
+                quantity: 1,
+                unit_price: @bank_transaction.amount.abs,
+                description: @bank_transaction.name)
+            ]) do |transactionable_form| %>
+            <%= render "bank_transaction_transactionables/forms/expense", form: transactionable_form %>
+          <% end %>
+        </template>
+
+        <template data-transactionable-target="invoicePaymentTemplate">
+          <%= form.fields_for :transactionable, InvoicePayment.new do |transactionable_form| %>
+            <%= render "bank_transaction_transactionables/forms/invoice_payment", form: transactionable_form %>
+          <% end %>
+        </template>
+
+        <template data-transactionable-target="billPaymentTemplate">
+          <%= form.fields_for :transactionable, BillPayment.new do |transactionable_form| %>
+            <%= render "bank_transaction_transactionables/forms/bill_payment", form: transactionable_form %>
+          <% end %>
+        </template>
+
+        <div data-transactionable-target="target">
+          <%= form.fields_for :transactionable, @bank_transaction_transactionable.transactionable do |transactionable_form| %>
+            <%= render "bank_transaction_transactionables/forms/#{@bank_transaction_transactionable.transactionable_type.underscore}", form: transactionable_form %>
+          <% end if @bank_transaction_transactionable.transactionable.present? %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

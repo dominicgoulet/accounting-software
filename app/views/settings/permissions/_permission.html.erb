@@ -1,0 +1,37 @@
+<div id="<%= dom_id(permission) %>">
+  <%= render DropdownComponent.new(title: 'account menu', mode: 'light') do |c| %>
+    <%= c.with_toggle do %>
+      <%= inline_svg_tag permission.image, class: 'h-5 w-5' %>
+    <% end %>
+
+    <%= c.with_links do %>
+      <%= link_to permission_level_none_permission_path(permission),
+                  class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                  method: :patch,
+                  data: { turbo_method: :patch },
+                  role: 'menuitem',
+                  tabindex: -1 do %>
+        None
+      <% end %>
+
+      <%= link_to permission_level_view_permission_path(permission),
+                  class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                  method: :patch,
+                  data: { turbo_method: :patch },
+                  role: 'menuitem',
+                  tabindex: -1 do %>
+        View
+      <% end %>
+
+      <%= link_to permission_level_edit_permission_path(permission),
+                  class: 'text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900',
+                  method: :patch,
+                  data: { turbo_method: :patch },
+                  role: 'menuitem',
+                  tabindex: -1 do %>
+        Edit
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+

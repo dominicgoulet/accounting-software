@@ -1,0 +1,10 @@
+<%= render ModalComponent.new do %>
+  <%= form_with model: @transfer do |form| %>
+    <%= render 'form', transfer: @transfer, form: form %>
+
+    <div class="modal__footer">
+      <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+      <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+    </div>
+  <% end %>
+<% end %>

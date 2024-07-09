@@ -1,0 +1,42 @@
+<%= turbo_stream_from [current_organization, :commercial_documents] %>
+
+<% content_for :page_title do %>
+  <div>Invoice details</div>
+  <%= status_badge(@commercial_document.status) %>
+<% end %>
+
+<% content_for :page_actions do %>
+    <%= link_to [:edit, @commercial_document], class: 'inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100', data: { turbo_frame: 'modal' } do %>
+      <%= inline_svg_tag 'mini/pencil-square', class: '-ml-1 mr-2 h-5 w-5 text-gray-400' %>
+      Edit
+    <% end %>
+
+    <%= link_to @commercial_document, class: 'inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100', data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } do %>
+      <%= inline_svg_tag 'mini/trash', class: '-ml-1 mr-2 h-5 w-5 text-gray-400' %>
+      Delete
+    <% end %>
+
+    <%= button_to [:prepare_email, @commercial_document], method: :get, class: 'inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100', data: { turbo_frame: 'modal' } do %>
+      <%= inline_svg_tag 'mini/envelope', class: '-ml-1 mr-2 h-5 w-5 text-gray-400' %>
+      Send
+    <% end %>
+
+    <%= button_to [:new, @commercial_document, :payment], method: :get, class: 'inline-flex items-center justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100', data: { turbo_frame: 'modal' } do %>
+      <%= inline_svg_tag 'mini/currency-dollar', class: '-ml-1 mr-2 h-5 w-5 text-gray-400' %>
+      Add payment
+    <% end %>
+<% end %>
+
+<div class="mx-auto grid max-w-3xl grid-cols-1 gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
+  <div class="space-y-6 lg:col-span-2 lg:col-start-1">
+    <section aria-labelledby="accounting-document-details">
+      <div class="bg-white shadow sm:rounded-lg">
+        <%= render 'commercial_documents/commercial_document', document: @commercial_document %>
+      </div>
+    </section>
+
+    <%= render partial: 'commercial_documents/discussion', locals: { commercial_document: @commercial_document } %>
+  </div>
+
+  <%= render partial: 'commercial_documents/audit_trail', locals: { commercial_document: @commercial_document } %>
+</div>

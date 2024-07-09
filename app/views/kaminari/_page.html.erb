@@ -1,0 +1,24 @@
+<%# Link showing page number
+  - available local variables
+    page:          a page object for "this" page
+    url:           url to this page
+    current_page:  a page object for the currently displayed page
+    total_pages:   total number of pages
+    per_page:      number of items to fetch per page
+    remote:        data-remote
+-%>
+<!--  Current: border-indigo-500 text-indigo-600
+      Default: border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700
+      Base  : inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium
+-->
+
+<%= link_to page,
+            url,
+            class: class_names(
+                    'inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium',
+                    { 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700': !page.current? },
+                    { 'border-indigo-500 text-indigo-600': page.current? }),
+            aria: { current: 'page' },
+            data: { turbo_frame: :datatable },
+            rel: page.rel %>
+

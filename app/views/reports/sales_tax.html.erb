@@ -1,0 +1,126 @@
+<div class="rounded-lg bg-white shadow">
+  <div class="pt-1 pb-4 px-4 sm:pb-6 lg:pb-8 sm:px-6 lg:px-8">
+    <%= render 'reports/query_params', query_parameters_components: @report.query_parameters_components %>
+  </div>
+</div>
+
+<div class="rounded-lg bg-white shadow mt-4">
+  <table class="min-w-full rounded-t-lg overflow-hidden">
+    <tr class="bg-teal-600 text-white">
+      <th scope="col" class="text-xs uppercase font-semibold px-6 text-left py-4">
+        Tax
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Starting Balance
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Net Sales During Period
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Tax Amount On Sales During Period
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Net Purchases During Period
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Tax Amount On Purchases During Period
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Net Tax Owing For Period
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Payments To Governement During Period
+      </th>
+
+      <th scope="col" class="text-xs uppercase font-semibold pr-6 w-32 text-left py-4 text-right">
+        Ending Balance
+      </th>
+    </tr>
+
+    <% @data[:taxes].each do |line| %>
+      <tr class="hover:bg-gray-100">
+        <td class="py-2 pl-6 pr-12 text-xs text-gray-900 flex">
+          <%= line[:TaxName] %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:StartingBalance]) %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:NetSalesDuringPeriod]) %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:TaxAmountOnSalesDuringPeriod]) %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:NetPurchasesDuringPeriod]) %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:TaxAmountOnPurchasesDuringPeriod]) %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:NetTaxOwingForPeriod]) %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:PaymentsToGovernementDuringPeriod]) %>
+        </td>
+
+        <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+          <%= format_amount(line[:EndingBalance]) %>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr class="hover:bg-gray-100 font-semibold">
+      <td class="py-2 pl-6 pr-12 text-xs text-gray-900 flex">
+        <%= @data[:total][:TaxName] %>
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        <%= format_amount(@data[:total][:StartingBalance]) %>
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        &nbsp;
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        <%= format_amount(@data[:total][:TaxAmountOnSalesDuringPeriod]) %>
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        &nbsp;
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        <%= format_amount(@data[:total][:TaxAmountOnPurchasesDuringPeriod]) %>
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        <%= format_amount(@data[:total][:NetTaxOwingForPeriod]) %>
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        <%= format_amount(@data[:total][:PaymentsToGovernementDuringPeriod]) %>
+      </td>
+
+      <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+        <%= format_amount(@data[:total][:EndingBalance]) %>
+      </td>
+    </tr>
+
+  </table>
+</div>

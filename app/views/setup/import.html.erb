@@ -1,0 +1,52 @@
+<div class="relative px-6 lg:px-8">
+  <div class="mx-auto max-w-prose text-lg">
+    <span class="block text-center text-3xl font-light text-gray-900">
+      Import data from another accounting software
+    </span>
+  </div>
+
+  <div class="prose prose-lg prose-indigo mx-auto mt-6 text-gray-500">
+
+      <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+        <p class="sm:col-span-6 mt-8 text-xl leading-8 text-gray-500">
+          Migrating from Quickbooks?
+        </p>
+
+        <% if @quickbooks_integration.present? %>
+          <div class="sm:col-span-6">
+           <%= form_with model: @quickbooks_integration do |form| %>
+              <%= render AttachedFilesUploadComponent.new(form: form) %>
+              <%= form.button 'Upload', type: 'submit', class: 'button button--primary' %>
+            <% end %>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form_with method: :post do |form| %>
+              <%= form.button class: 'button button--primary' do %>
+                <span>Import</span>
+                <%= inline_svg_tag 'outline/arrow-long-right', class: 'h-5 w-5' %>
+              <% end %>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="sm:col-span-6">
+            <%= form_with method: :post do |form| %>
+              <%= form.button class: 'button button--primary' do %>
+                <span>Yes</span>
+                <%= inline_svg_tag 'outline/arrow-long-right', class: 'h-5 w-5' %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <div class="sm:col-span-6">
+          <%= form_with method: :patch do |form| %>
+            <%= form.button class: 'button button--skip' do %>
+              <span>Skip this for now</span>
+              <%= inline_svg_tag 'outline/arrow-long-right', class: 'h-5 w-5' %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+  </div>
+</div>

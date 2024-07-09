@@ -1,0 +1,59 @@
+<tr id="<%= dom_id(account) %>">
+  <td class="relative w-12 px-6 sm:w-16 sm:px-8">
+    <div class="row-marker absolute inset-y-0 left-0 w-0.5 bg-indigo-600"></div>
+    <%= children_checkbox(account.id) %>
+  </td>
+
+  <td class="whitespace-nowrap py-4 text-xs text-gray-900">
+    <div class="font-medium flex items-center">
+      <% account.parent_accounts.each do |parent| %>
+        <div class="text-slate-300"><%= parent.display_name %></div>
+        <%= inline_svg_tag 'mini/chevron-right', class: 'h-5 w-5 text-slate-300' %>
+      <% end %>
+
+      <%= account.display_name %>
+    </div>
+  </td>
+
+  <td class="whitespace-nowrap pl-3 py-4 text-xs text-gray-500 hidden sm:table-cell text-right">
+    <%= format_amount account.current_balance %>
+  </td>
+
+  <td class="whitespace-nowrap pl-3 py-4 text-xs text-gray-500 hidden xl:table-cell">
+    <%= account.account_type %>
+  </td>
+
+  <td class="whitespace-nowrap px-3 sm:px-0 py-4">
+    <%= render DropdownComponent.new(title: 'account menu', mode: 'light') do |c| %>
+      <%= c.with_toggle do %>
+        <%= inline_svg_tag 'mini/ellipsis-vertical', class: 'h-5 w-5' %>
+      <% end %>
+
+      <%= c.with_links do %>
+        <%= link_to edit_account_path(account),
+                    class: 'text-gray-700 block px-4 py-2 text-xs hover:bg-gray-100 hover:text-gray-900',
+                    data: { turbo_frame: 'modal' },
+                    role: 'menuitem',
+                    tabindex: -1 do %>
+          Edit <span class="sr-only">, <%= account.display_name %></span>
+        <% end %>
+
+        <%= link_to audit_trail_path(auditable_type: account.class.name, auditable_id: account.id),
+                    class: 'text-gray-700 block px-4 py-2 text-xs hover:bg-gray-100 hover:text-gray-900',
+                    data: { turbo_frame: 'modal' },
+                    role: 'menuitem',
+                    tabindex: -1 do %>
+          View history <span class="sr-only">, <%= account.display_name %></span>
+        <% end %>
+
+        <%= link_to account,
+                    class: 'text-gray-700 block px-4 py-2 text-xs hover:bg-gray-100 hover:text-gray-900',
+                    data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                    role: 'menuitem',
+                    tabindex: -1 do %>
+          Delete <span class="sr-only">, <%= account.display_name %></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  </td>
+</tr>

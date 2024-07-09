@@ -1,0 +1,15 @@
+<%= content_for :page_title do %>
+  <%= render SectionMenuComponent.new(
+    items: settings_menu_items,
+    context: params) %>
+<% end %>
+
+<% content_for :content do %>
+  <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
+    <div class="lg:col-span-12">
+      <%= yield %>
+    </div>
+  </div>
+<% end %>
+
+<%= render template: 'layouts/application' %>

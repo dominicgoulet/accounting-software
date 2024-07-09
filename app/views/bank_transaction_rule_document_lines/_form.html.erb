@@ -1,0 +1,42 @@
+<div class="nested-form-wrapper sm:col-span-6 grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12" data-new-record="<%= form.object.new_record? %>"<% if form.object.new_record? %> data-action="focusin->nested-form#add:once"<% end %>>
+
+  <div class="sm:col-span-6">
+    <%= form.label :account_id, class: 'block sm:hidden text-sm font-medium text-gray-700' %>
+
+    <%= render ComboboxComponent.new(
+          form: form,
+          field: :account_id,
+          kind: 'account',
+          options: current_organization.accounts,
+          initial_value: form.object.account&.display_name,
+          display_label: false) %>
+    <%= form_error_notification(form, :account) %>
+  </div>
+
+  <div class="sm:col-span-2">
+    <%= form.label :percentage, class: 'block sm:hidden text-sm font-medium text-gray-700' %>
+
+    <div class="mt-1">
+      <%= form.text_field :percentage, class: 'form__input'  %>
+      <%= form_error_notification(form, :percentage) %>
+    </div>
+  </div>
+
+  <div class="sm:col-span-3">
+    <%= form.label :bank_transaction_rule_document_line_taxes, class: 'block sm:hidden text-sm font-medium text-gray-700' %>
+
+    <div class="mt-1">
+      <%= render SalesTaxPickerComponent.new(kind: 'bank_transaction_rule_document', form: form, field: :bank_transaction_rule_document_line_taxes, organization: current_organization) %>
+    </div>
+  </div>
+
+  <div class="sm:col-span-1">
+    <div class="relative mt-1 flex justify-end">
+      <button type="button" data-action="nested-form#remove" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm">
+        <%= inline_svg_tag 'mini/x-mark', class: 'w-5 h-5 mx-auto' %>
+      </button>
+    </div>
+  </div>
+
+  <%= form.hidden_field :_destroy %>
+</div>

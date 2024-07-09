@@ -1,0 +1,3 @@
+<div id="<%= dom_id(commercial_document_payment) %>">
+  Payment of <%= format_amount(commercial_document_payment.amount) %> applied towards document from <%= commercial_document_payment.document.contact&.display_name %> (<%= commercial_document_payment.document.date %>).
+</div>

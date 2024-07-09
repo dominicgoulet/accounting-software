@@ -1,0 +1,35 @@
+<tr id="<%= dom_id(audit_event) %>">
+
+  <td class="whitespace-nowrap py-4 pr-3 text-sm font-medium text-gray-900">
+    <%= audit_event.occured_at %>
+  </td>
+
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">
+    <%= audit_event.integration.name %>
+  </td>
+
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">
+    <%= audit_event.action %>
+  </td>
+
+  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">
+    <table>
+      <thead>
+        <tr>
+          <th>changes[:property]</th>
+          <th>changes[:was]</th>
+          <th>changes[:is]</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% audit_event.changes_from_previous_version.each do |changes| %>
+        <tr>
+          <td><%= changes[:property] %></td>
+          <td><%= changes[:was] %></td>
+          <td><%= changes[:is] %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </td>
+</tr>

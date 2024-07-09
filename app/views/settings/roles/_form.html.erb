@@ -1,0 +1,74 @@
+<%= form_with model: role do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Role information</h3>
+          <p class="mt-1 text-sm text-gray-500">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-4">
+            <%= form.label :name, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :name, class: 'form__input' %>
+              <%= form_error_notification(form, :name) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :description, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_area :description, class: 'form__input' %>
+              <%= form_error_notification(form, :description) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <label class="form__label">Members</label>
+            <div class="mt-6 flow-root">
+              <ul role="list" class="-my-5 divide-y divide-gray-200">
+                <%= form.collection_check_boxes(:membership_ids, current_organization.memberships, :id, :display_name) do |b| %>
+                  <li>
+                    <%= b.label class: 'block py-2 px-2' do %>
+                    <div class="flex items-center space-x-4">
+                      <div class="flex-shrink-0">
+                        <img class="h-8 w-8 rounded-full" src="<%= b.object.user.avatar_url %>" alt="">
+                      </div>
+
+                      <div class="min-w-0 flex-1">
+                        <div class="relative flex items-start py-4">
+                          <div class="min-w-0 flex-1 text-sm">
+                            <p class="truncate text-sm font-medium text-gray-900">
+                              <%= b.object.display_name %>
+                            </p>
+                            <p class="truncate text-sm text-gray-500">
+                              <%= b.object.user.email %>
+                            </p>
+                          </div>
+                          <div class="ml-3 flex h-5 items-center">
+                            <%= b.check_box class: 'h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500' %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

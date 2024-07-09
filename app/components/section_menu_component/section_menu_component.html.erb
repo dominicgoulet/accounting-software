@@ -1,0 +1,36 @@
+<div>
+  <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+
+    <select class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm text-black font-normal" onchange="window.location.href = this[this.selectedIndex].dataset.href">
+      <% @items.each do |menu_item| %>
+      <option data-href="<%= menu_item[:path] %>"<% if current_page?(menu_item[:path]) %> selected<% end %>><%= menu_item[:label] %></option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="hidden sm:block">
+    <div class="">
+      <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+        <%
+          @items.each do |menu_item|
+        %>
+          <%= link_to menu_item[:path],
+                      class: class_names(
+                        'group inline-flex items-center pb-3 pt-2 px-1 border-b-2 font-medium text-sm',
+                        { 'border-teal-500 text-teal-500': active?(menu_item[:path], menu_item[:controller]) },
+                        { 'border-transparent text-gray-100 hover:text-gray-300 hover:border-gray-100': !active?(menu_item[:path], menu_item[:controller]) }
+                      ) do %>
+            <%= inline_svg_tag menu_item[:icon],
+                               class: class_names(
+                                 '-ml-0.5 mr-2 h-5 w-5',
+                                 { 'text-teal-500': active?(menu_item[:path], menu_item[:controller]) },
+                                 { 'text-gray-100 group-hover:text-gray-300': !active?(menu_item[:path], menu_item[:controller]) }
+                               ) %>
+            <span><%= menu_item[:label] %></span>
+          <% end %>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>

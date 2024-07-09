@@ -1,0 +1,51 @@
+<%= render ModalComponent.new do %>
+  <%= form_with model: @email, url: send_email_commercial_document_path do |form| %>
+    <div class="px-4 py-5 sm:p-6">
+      <div class="space-y-8 divide-y divide-gray-200">
+        <div>
+          <div>
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Send document</h3>
+            <p class="mt-1 text-sm text-gray-500">
+               An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+            </p>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div class="sm:col-span-6">
+              <%= form.label :recipients, class: 'form__label' %>
+
+              <div class="mt-1">
+                <%= form.text_field :recipients, autofocus: true, class: 'form__input' %>
+                <%= form_error_notification(form, :recipients) %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-6">
+              <%= form.label :subject, class: 'form__label' %>
+
+              <div class="mt-1">
+                <%= form.text_field :subject, autofocus: true, class: 'form__input' %>
+                <%= form_error_notification(form, :subject) %>
+              </div>
+            </div>
+
+            <div class="sm:col-span-6">
+              <%= form.label :body, class: 'form__label' %>
+
+              <div class="mt-1">
+                <%= form.text_area :body, autofocus: true, class: 'h-48 input' %>
+                <%= form_error_notification(form, :body) %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal__footer">
+      <%= form.button 'Send', type: 'submit', class: 'button button--primary' %>
+      <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+    </div>
+  <% end %>
+<% end %>
+

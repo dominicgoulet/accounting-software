@@ -1,0 +1,5 @@
+<div id="<%= dom_id(transfer) %>" class="flex w-full items-center py-2">
+  <div>
+    Transfer of <%= format_amount transfer.amount %> from <%= transfer.from_account.display_name %> to <%= transfer.to_account.display_name %>.
+  </div>
+</div>

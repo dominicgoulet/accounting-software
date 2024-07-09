@@ -1,0 +1,15 @@
+<%= render ModalComponent.new do %>
+  <div class="modal-content">
+    <%=@bank_transaction_rule.inspect %>
+    <pre>--------------------</pre>
+    <% BankTransactionMatcher.verify_rule(@bank_transaction_rule).each do |match| %>
+    <pre><%= match.name %> | <%= match.amount %> | <%= match.debit %> | <%= match.credit %></pre>
+    <% end %>
+  </div>
+
+  <div class="modal-footer">
+    <%= button_to enforce_bank_transaction_rule_path(@bank_transaction_rule), method: :patch, class: 'btn btn-primary' do %>
+      Apply to found transactions
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,149 @@
+en:
+  views:
+    pagination:
+      first: "&laquo; First"
+      last: "Last &raquo;"
+      previous: "&lsaquo; Prev"
+      next: "Next &rsaquo;"
+      truncate: "&hellip;"
+
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: ""
+          one: "1 – 1 of 1"
+          other: "1 – %{count} of %{count}"
+      more_pages:
+        display_entries: "%{first} – %{last} of %{total}"
+
+  forms:
+    contact:
+      fields:
+        display_name: 'Display name'
+        email: 'Email'
+        phone_number: 'Phone number'
+        first_name: 'First name'
+        last_name: 'Last name'
+        company_name: 'Company name'
+        website: 'Website URL'
+
+  accounts:
+    classifications:
+      asset: 'What you have'
+      liability: 'What you owe'
+      equity: 'What you are'
+      income: 'Revenue accounts'
+      expense: 'Expenses account'
+
+  menus:
+    reports:
+      overview:
+        title: 'Overview'
+        description: 'Overview'
+      balance_sheet:
+        title: 'Balance sheet'
+        description: 'Balance sheet'
+      profit_and_loss:
+        title: 'Profit & Loss'
+        description: 'Profit & Loss'
+      cashflow:
+        title: 'Cashflow'
+        description: 'Cashflow'
+      account_payable_aging:
+        title: 'Account payable aging'
+        description: 'Account payables'
+      account_receivable_aging:
+        title: 'Account receivable aging'
+        description: 'Account receivables'
+      sales_tax:
+        title: 'Sales tax'
+        description: 'Sales taxes'
+
+    settings:
+      accounts:
+        title: 'Chart of accounts'
+        description: 'Chart of accounts description'
+      items:
+        title: 'Items'
+        description: 'Items description'
+      sales_taxes:
+        title: 'Sales taxes'
+        description: 'Sales taxes description'
+      bank_credentials:
+        title: 'Bank credentials'
+        description: 'Bank credentials description'
+      integrations:
+        title: 'Integrations'
+        description: 'Integrations description'
+      organizations:
+        title: 'Organization'
+        description: 'Organization description'
+      users:
+        title: 'User'
+        description: 'User description'
+
+    contact:
+      overview:
+        title: 'Overview'
+        description: 'Overview description'
+      invoices:
+        title: 'Invoices'
+        description: 'Invoices description'
+      deposits:
+        title: 'Deposits'
+        description: 'Deposits description'
+      bills:
+        title: 'Bills'
+        description: 'Bills description'
+      expenses:
+        title: 'Expenses'
+        description: 'Expenses description'
+
+    invoice:
+      overview:
+        title: 'Overview'
+        description: 'Overview description'
+      details:
+        title: 'Details'
+        description: 'Details description'
+      payments:
+        title: 'Payments'
+        description: 'Payments description'
+      communications:
+        title: 'Communications'
+        description: 'Communications description'
+      audit_trail:
+        title: 'Audit trail'
+        description: 'Audit trail description'
+
+    organizations:
+      overview:
+        title: 'Overview'
+        description: 'Overview description'
+      members:
+        title: 'Members'
+        description: 'Members description'
+      roles:
+        title: 'Roles'
+        description: 'Roles description'
+      business_units:
+        title: 'Business units'
+        description: 'Business units description'
+      permissions:
+        title: 'Permissions'
+        description: 'Permissions description'
+
+    users:
+      overview:
+        title: 'Overview'
+        description: 'Overview description'
+      security:
+        title: 'Security'
+        description: 'Security description'
+      preferences:
+        title: 'Preferences'
+        description: 'Preferences description'
+      organizations:
+        title: 'Organizations'
+        description: 'Organizations description'

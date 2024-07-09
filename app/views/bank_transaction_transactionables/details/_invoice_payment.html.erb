@@ -1,0 +1,5 @@
+<div id="<%= dom_id(invoice_payment) %>" class="flex w-full items-center py-2">
+  <div>
+    Payment of <%= format_amount(invoice_payment.amount) %> applied towards invoice from <%= invoice_payment.invoice.contact.display_name %> (<%= invoice_payment.invoice.date %>).
+  </div>
+</div>

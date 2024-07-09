@@ -1,0 +1,53 @@
+<%= content_for :page_actions do %>
+  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5">
+    <%= link_to bank_account_transactions_path(@bank_account), class: 'flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:px-3 bg-white shadow', role: 'tab', aria: { selected: true }, tabindex: 0 do %>
+      <%= inline_svg_tag 'outline/squares-2x2', class: 'h-5 w-5 flex-none stroke-teal-500' %>
+
+      <span class="sr-only lg:ml-2 text-slate-900">Active invoices</span>
+    <% end %>
+
+    <%= link_to all_bank_account_transactions_path(@bank_account), class: 'flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:px-3', role: 'tab', aria: { selected: false }, tabindex: 0 do %>
+      <%= inline_svg_tag 'outline/list-bullet', class: 'h-5 w-5 flex-none stroke-slate-600' %>
+
+      <span class="sr-only lg:ml-2 text-slate-600">Archives</span>
+    <% end %>
+  </div>
+
+  <%= button_to fetch_transactions_bank_accounts_path, method: :patch, data: { turbo_method: :patch }, class: 'button button--page-action', data: { turbo_frame: 'modal' } do %>
+    Synchronize
+  <% end %>
+<% end %>
+
+<%= turbo_stream_from [current_organization, :bank_accounts] %>
+<%= turbo_stream_from [current_organization, :bank_transactions] %>
+
+<div class="mb-6">
+  <%= render SelectComponent.new(title: 'bank account menu') do |c| %>
+    <%= c.with_toggle do %>
+      <%= render @bank_account %>
+    <% end %>
+
+    <%= c.with_links do %>
+      <% @bank_accounts.each do |bank_account| %>
+        <%= link_to bank_account_transactions_path(bank_account), role: 'menuitem', tabindex: -1 do %>
+          <%= render bank_account %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="grid xl:grid-cols-3 gap-4" data-controller="kanban">
+  <% BankTransaction.status.values.filter{ |s| !['approved', 'rejected'].include? s }.each do |status| %>
+    <div class="rounded-lg bg-slate-200 shadow mb-6 space-y-4">
+      <div class="rounded-t-lg border-t-8 px-4 w-full pt-3 border-<%= status_color(status) %>-500">
+        <div class="font-medium"><%= status.capitalize %></div>
+        <span class="font-light text-xs"><%= t("bank_transactions.statuses.#{status}") %></span>
+      </div>
+
+      <div class="gap-4 grid px-3 pb-3" data-kanban-target="column" data-status="<%= status %>">
+        <%= render @bank_transactions.filter{ |bt| bt.status == status } %>
+      </div>
+    </div>
+  <% end %>
+</div>

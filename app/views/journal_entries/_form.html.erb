@@ -1,0 +1,107 @@
+<%= form_with model: @journal_entry, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' } do |form| %>
+  <div class="px-4 py-5 sm:p-6">
+    <div class="space-y-8 divide-y divide-gray-200">
+      <div>
+        <div>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Journal entry information</h3>
+          <p class="mt-1 text-sm text-gray-500">
+             An asset, liabilitie, income, expense, or equity, as represented by individual ledger pages, to which changes in value are chronologically recorded with debit and credit entries.
+          </p>
+        </div>
+
+        <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+          <div class="sm:col-span-1">
+            <%= form.label :date, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.date_field :date, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :date) %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-5">
+            <%= form.label :narration, class: 'form__label' %>
+
+            <div class="mt-1">
+              <%= form.text_field :narration, autofocus: true, class: 'form__input' %>
+              <%= form_error_notification(form, :narration) %>
+            </div>
+          </div>
+
+          <div class="hidden sm:grid sm:col-span-6 grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12">
+            <div class="sm:col-span-3"><span class="form__label">Account</span></div>
+            <div class="sm:col-span-3"><span class="form__label">Client</span></div>
+            <div class="sm:col-span-2"><span class="form__label">Business unit</span></div>
+            <div class="sm:col-span-4 flex gap-4">
+              <div class="grow text-sm font-medium text-gray-700">Credit</div>
+              <div class="grow text-sm font-medium text-gray-700">Debit</div>
+              <div class="w-16">&nbsp;</div>
+            </div>
+          </div>
+
+          <div class="sm:-mt-6 sm:col-span-6 grid grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-6">
+            <template data-nested-form-target="template">
+              <%= form.fields_for :journal_entry_lines, JournalEntryLine.new, child_index: 'NEW_RECORD' do |journal_entry_line_form| %>
+                <%= render "journal_entry_lines/form", form: journal_entry_line_form %>
+              <% end %>
+            </template>
+
+            <%= form.fields_for :journal_entry_lines do |journal_entry_line_form| %>
+              <%= render "journal_entry_lines/form", form: journal_entry_line_form %>
+            <% end %>
+
+            <div data-nested-form-target="target"></div>
+          </div>
+
+          <div class="hidden sm:grid sm:col-span-6 grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-12 items-center">
+            <div class="sm:col-span-8 justify-end flex gap-4">
+              <span class="hidden block text-sm font-medium text-red-500 flex items-center gap-3" data-nested-form-target="creditAndDebitMismatchMessage">
+                <%= inline_svg_tag 'outline/exclamation-triangle', class: 'h-5 w-5' %>
+                Credit and debit does not match
+              </span>
+              <span class="form__label">Total</span>
+            </div>
+
+            <div class="sm:col-span-4 flex gap-4">
+              <div>
+                <div class="relative mt-1 rounded-md shadow-sm">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span class="text-gray-500 sm:text-sm">$</span>
+                  </div>
+
+                  <input type="text" class="block w-full rounded-md border-gray-300 pl-7 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-right" value="0.00" disabled data-nested-form-target="totalCredit" />
+                </div>
+              </div>
+
+              <div>
+                <div class="relative mt-1 rounded-md shadow-sm">
+                  <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span class="text-gray-500 sm:text-sm">$</span>
+                  </div>
+
+                  <input type="text" class="block w-full rounded-md border-gray-300 pl-7 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm text-right" value="0.00" disabled data-nested-form-target="totalDebit" />
+                </div>
+              </div>
+
+              <div class="w-16">&nbsp;</div>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= render AttachedFilesUploadComponent.new(form: form) %>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= render RecurringSelectComponent.new(recurring_event: form.object.recurring_event  || RecurringEvent.new) %>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal__footer">
+    <%= form.button 'Save', type: 'submit', class: 'button button--primary' %>
+    <button type="button" data-action="click->modal-component--modal-component#hideModal" class="button button--neutral">Cancel</button>
+  </div>
+<% end %>

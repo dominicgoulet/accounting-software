@@ -1,0 +1,14 @@
+<%= turbo_stream_from [current_user] %>
+
+<div class="py-6 px-4 sm:px-6 lg:px-8">
+  <div class="sm:flex sm:items-top">
+    <div class="sm:flex-auto">
+      <h1 class="text-xl font-semibold text-gray-900">User</h1>
+      <p class="mt-2 text-sm text-gray-700">
+        A list of financial accounts for recording transactions in the organization's general ledger. Accounts may be added to the chart of accounts as needed; they would not generally be removed, especially if any transaction had been posted to the account or if there is a non-zero balance.
+      </p>
+    </div>
+  </div>
+
+  <%= render @user %>
+</div>

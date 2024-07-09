@@ -1,0 +1,17 @@
+<%= turbo_stream_from [current_organization, :contacts] %>
+
+<% content_for :page_actions do %>
+  <%= button_to new_contact_path, method: :get, class: 'button button--page-action', data: { turbo_frame: 'modal' } do %>
+    <%= inline_svg_tag 'mini/plus', class: 'button__image' %>
+  <% end %>
+<% end %>
+
+<div class="rounded-lg bg-white px-5 py-6 shadow sm:px-6 overflow-hidden">
+  <div class="relative z-0 flex flex-1 overflow-hidden -my-5 -mx-5 md:-my-6 md:-mx-6">
+
+
+    <aside class="w-full xl:w-full flex-shrink-0 border-r border-gray-200 xl:order-first">
+      <%= render partial: 'contacts/contacts', locals: { contacts: @contacts } %>
+    </aside>
+  </div>
+</div>

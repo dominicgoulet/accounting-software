@@ -1,0 +1,30 @@
+<div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+  <div class="sm:col-span-6">
+    <label class="text-base font-medium text-gray-900">Outstanding bills</label>
+    <p class="text-sm leading-5 text-gray-500">How do you prefer to receive notifications?</p>
+
+    <div class="mt-4">
+      <fieldset>
+        <legend class="sr-only">
+          Outstanding bills
+        </legend>
+
+        <div class="space-y-5">
+          <% current_organization.bills.outstanding.each do |bill| %>
+          <div class="relative flex items-start">
+            <label class="flex items-center">
+              <div class="flex h-5 items-center">
+                <%= form.radio_button :bill_id, bill.id, class: 'h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500' %>
+              </div>
+              <div class="ml-3 text-sm">
+                <span class="font-medium text-gray-700"><%= bill.contact.display_name %> </span>
+                <span id="small-description" class="text-gray-500">(<%= bill.date %>) : <%= format_amount(bill.amount_due) %> due out of <%= format_amount(bill.total) %> total</span>
+              </div>
+            </label>
+          </div>
+          <% end %>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

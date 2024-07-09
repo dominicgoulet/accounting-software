@@ -1,0 +1,40 @@
+<div data-controller="sales-tax-picker-component--sales-tax-picker-component"
+     data-sales-tax-picker-component--sales-tax-picker-component-target="dropdown"
+     class="block w-full rounded-md border border-gray-300 bg-white shadow-sm focus-within:border-indigo-500 focus-within:outline-none focus-within:ring-1 focus-within:ring-indigo-500 sm:text-sm">
+
+  <div class="flex items-center">
+    <div data-sales-tax-picker-component--sales-tax-picker-component-target="selectedValues"
+         class="flex items-center gap-px pl-2">
+    </div>
+
+    <input type="text"
+           data-action="focus->sales-tax-picker-component--sales-tax-picker-component#showOptions
+           click@window->sales-tax-picker-component--sales-tax-picker-component#hideOptions touchend@window->sales-tax-picker-component--sales-tax-picker-component#hideOptions keydown->sales-tax-picker-component--sales-tax-picker-component#beforeFilter keyup->sales-tax-picker-component--sales-tax-picker-component#filter blur->nested-form#updateTaxes"
+           data-sales-tax-picker-component--sales-tax-picker-component-target="filterValue"
+           class="border-0 border-gray-300 rounded-r-md w-full h-9 focus:outline-none focus:ring-0 pl-1 sm:text-sm" />
+  </div>
+
+  <ul class="hidden absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm" id="options" role="listbox" data-sales-tax-picker-component--sales-tax-picker-component-target="optionList">
+    <% @options.each_with_index do |item, index| %>
+        <% lst = @form.object.taxes.find_by(sales_tax_id: item[0]) %>
+
+        <li data-id="<%= item[0] %>"
+            data-name="<%= item[1] %>"
+            data-filter-name="<%= item[1].downcase %>"
+            data-sales-tax-picker-component--sales-tax-picker-component-target="option"
+            data-action="click->sales-tax-picker-component--sales-tax-picker-component#select"
+            class="group relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:text-white hover:bg-indigo-600">
+
+          <label>
+            <%= hidden_field "#{@form.object_name}taxes_attributes[#{index}]", :id, value: lst.id if lst.present? %>
+
+            <%= hidden_field "#{@form.object_name}taxes_attributes[#{index}]", :_destroy, value: false if lst.present? %>
+
+            <%= check_box_tag "#{@form.object_name}taxes_attributes[#{index}][sales_tax_id]", item[0], lst.present?, class: 'hidden', data: { action: 'sales-tax-picker-component--sales-tax-picker-component#updateSalesTax', rate: item[2] } %>
+
+            <span class="block truncate"><%= item[1] %> (<%= item[2] %>%)</span>
+          </label>
+        </li>
+    <% end %>
+  </ul>
+</div>

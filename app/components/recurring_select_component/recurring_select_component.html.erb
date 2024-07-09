@@ -1,0 +1,141 @@
+<div data-controller="recurring-select-component--recurring-select-component">
+  <label class="text-sm font-medium text-gray-500 flex items-center gap-2">
+    <input name="recurring_event[enabled]" type="checkbox" value="true" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" data-recurring-select-component--recurring-select-component-target="recurringToggle" data-action="change->recurring-select-component--recurring-select-component#toggleRecurring"<% if @recurring_event.persisted? %> checked<% end %>>
+    Recurring event
+  </label>
+
+  <div class="hidden" data-recurring-select-component--recurring-select-component-target="recurringOptions">
+    <div class="rounded-md border border-gray-200 py-3 px-3 mt-1">
+      <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-1">
+          <label class="text-sm font-medium text-gray-500">
+            Repeat
+
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <select name="recurring_event[frequency]" class="form__input" data-recurring-select-component--recurring-select-component-target="frequencySelector" data-action="change->recurring-select-component--recurring-select-component#updateIntervalLabel">
+                <% RecurringEvent.frequency.values.each do |frequency| %>
+                  <option value="<%= frequency %>"<% if @recurring_event.frequency == frequency %> selected<% end %>><%= frequency %></option>
+                <% end %>
+              </select>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-1">
+          <label class="text-sm font-medium text-gray-500">
+            Every
+
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <input name="recurring_event[interval]" type="number" class="block w-full rounded-md border-gray-300 pr-16 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= @recurring_event.interval %>" />
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <span class="text-gray-500 sm:text-sm" id="price-currency" data-recurring-select-component--recurring-select-component-target="intervalLabel">days</span>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-1">
+          <label class="text-sm font-medium text-gray-500">
+            End repeat
+
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <select name="recurring_event[end_repeat]" class="form__input" data-recurring-select-component--recurring-select-component-target="endRepeatSelector" data-action="change->recurring-select-component--recurring-select-component#updateEndRepeatOptions">
+                <% RecurringEvent.end_repeat.values.each do |end_repeat| %>
+                  <option value="<%= end_repeat %>"<% if @recurring_event.end_repeat == end_repeat %> selected<% end %>><%= end_repeat %></option>
+                <% end %>
+              </select>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-1 hidden" data-recurring-select-component--recurring-select-component-target="endRepeatDate">
+          <label class="text-sm font-medium text-gray-500">
+            &nbsp;
+
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <input name="recurring_event[repeat_until]" type="date" class="form__input" value="<%= @recurring_event.repeat_until %>" />
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-1 hidden" data-recurring-select-component--recurring-select-component-target="endRepeatCount">
+          <label class="text-sm font-medium text-gray-500">
+            &nbsp;
+
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <input name="recurring_event[repeat_count]" type="number" class="block w-full rounded-md border-gray-300 pr-14 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" value="<%= @recurring_event.repeat_count %>" />
+
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <span class="text-gray-500 sm:text-sm" id="price-currency">times</span>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-6 mt-4">
+        <div class="sm:col-span-6 flex flex-wrap items-center gap-3 hidden" data-recurring-select-component--recurring-select-component-target="weeklyOptions">
+          <% 7.times do |day_of_week| %>
+            <label class="text-sm font-medium text-gray-500 text-center">
+              <%= Date::DAYNAMES[day_of_week] %>
+
+              <div class="relative mt-1 ">
+                <input name="recurring_event[day_of_week][]" type="checkbox" value="<%= day_of_week + 1 %>" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" <% if @recurring_event.day_of_week.include? day_of_week + 1 %>checked<% end %>>
+              </div>
+            </label>
+          <% end %>
+        </div>
+
+        <div class="sm:col-span-6 flex flex-wrap items-center gap-3 hidden" data-recurring-select-component--recurring-select-component-target="monthlyOptions">
+          <% 31.times do |day_of_month| %>
+            <label class="text-sm font-medium text-gray-500 text-center">
+              <%= day_of_month + 1 %>
+
+              <div class="relative mt-1 ">
+                <input name="recurring_event[day_of_month][]" type="checkbox" value="<%= day_of_month + 1 %>" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" <% if @recurring_event.day_of_month.include? day_of_month + 1 %>checked<% end %>>
+              </div>
+            </label>
+          <% end %>
+
+          <label class="text-sm font-medium text-gray-500 text-center">
+            last
+
+            <div class="relative mt-1 ">
+              <input  name="recurring_event[day_of_month][]"type="checkbox" value="-1" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" <% if @recurring_event.day_of_month.include? -1 %>checked<% end %>>
+            </div>
+          </label>
+        </div>
+
+        <div class="sm:col-span-6 flex flex-wrap items-center gap-3 hidden" data-recurring-select-component--recurring-select-component-target="yearlyOptions">
+          <% 12.times do |month_of_year| %>
+            <label class="text-sm font-medium text-gray-500 text-center">
+              <%= Date::MONTHNAMES[month_of_year + 1] %>
+
+              <div class="relative mt-1 ">
+                <input name="recurring_event[month_of_year][]" type="checkbox" value="<%= month_of_year + 1 %>" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" <% if @recurring_event.month_of_year.include? month_of_year + 1 %>checked<% end %>>
+              </div>
+            </label>
+          <% end %>
+
+          <% 366.times do |day_of_year| %>
+            <label class="text-sm font-medium text-gray-500 text-center">
+              <%= day_of_year + 1 %>
+
+              <div class="relative mt-1 ">
+                <input name="recurring_event[day_of_year][]" type="checkbox" value="<%= day_of_year + 1 %>" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" <% if @recurring_event.day_of_year.include? day_of_year + 1 %>checked<% end %>>
+              </div>
+            </label>
+          <% end %>
+
+          <label class="text-sm font-medium text-gray-500 text-center">
+            last
+
+            <div class="relative mt-1 ">
+              <input name="recurring_event[day_of_year][]" type="checkbox" value="-1" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" <% if @recurring_event.day_of_year.include? -1 %>checked<% end %>>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

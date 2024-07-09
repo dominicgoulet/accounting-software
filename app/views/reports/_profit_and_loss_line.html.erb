@@ -1,0 +1,63 @@
+<tr class="hover:bg-gray-100">
+  <td class="py-2 pl-6 pr-12 text-xs text-gray-900 flex">
+    <% depth.times do %>
+      <div class="w-4"></div>
+    <% end %>
+
+    <%= line[:account][:reference] %> <%= line[:account][:name] %>
+  </td>
+
+  <% 12.times do |month| %>
+  <td class="whitespace-nowrap py-2 text-xs text-gray-500 text-right">
+    <% if line[:account][:id].present? %>
+      <%= link_to account_reports_path(line[:account][:id]), class: 'hover:underline hover:text-indigo-900 text-indigo-500', data: { turbo_frame: :modal } do %>
+        <%= format_amount_condensed(line[:months][month][:balance]) %>
+      <% end %>
+    <% else %>
+      <%= format_amount_condensed(line[:months][month][:balance]) %>
+    <% end %>
+  </td>
+  <% end %>
+
+  <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+    <% if line[:account][:id].present? %>
+      <%= link_to account_reports_path(line[:account][:id]), class: 'hover:underline hover:text-indigo-900 text-indigo-500', data: { turbo_frame: :modal } do %>
+        <%= format_amount_condensed(line[:balance]) %>
+      <% end %>
+    <% else %>
+      <%= format_amount_condensed(line[:balance]) %>
+    <% end %>
+  </td>
+</tr>
+
+<% line[:children].each do |subline| %>
+  <%= render partial: 'profit_and_loss_line', locals: { line: subline, depth: depth + 1  } %>
+<% end %>
+
+<% if line[:children].size > 0 %>
+<tr class="hover:bg-gray-100 font-semibold">
+  <td class="py-2 pl-6 text-xs text-gray-900 flex">
+    <% depth.times do %>
+      <div class="w-4"></div>
+    <% end %>
+
+    Total <%= line[:account][:reference] %> <%= line[:account][:name] %>
+  </td>
+
+  <% 12.times do |month| %>
+  <td class="whitespace-nowrap py-2 text-xs text-gray-500 text-right">
+    <% if line[:account][:id].present? %>
+      <%= link_to account_reports_path(line[:account][:id]), class: 'hover:underline hover:text-indigo-900 text-indigo-500', data: { turbo_frame: :modal } do %>
+        <%= format_amount_condensed(line[:months][month][:total]) %>
+      <% end %>
+    <% else %>
+      <%= format_amount_condensed(line[:months][month][:total]) %>
+    <% end %>
+  </td>
+  <% end %>
+
+  <td class="whitespace-nowrap pr-6 py-2 text-xs text-gray-500 text-right">
+    <%= format_amount_condensed(line[:total]) %>
+  </td>
+</tr>
+<% end %>
